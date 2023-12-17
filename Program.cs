@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using HastaneOtomasyonSistemi.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<HastaneOtomasyonSistemiContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("HastaneOtomasyonSistemiContext") ?? throw new InvalidOperationException("Connection string 'HastaneOtomasyonSistemiContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
