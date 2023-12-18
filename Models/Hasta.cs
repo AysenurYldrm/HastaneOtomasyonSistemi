@@ -39,6 +39,6 @@ namespace HastaneOtomasyonSistemi.Models
         [DisplayName("Doğum Tarihiniz")]
         [DataType(DataType.Date)]
         public DateTime DogumTarihi { get; set; }
-        Nullable<int> randevular { get; set; }
+        public List<Randevu>? Randevular { get; set; }
     }
 }

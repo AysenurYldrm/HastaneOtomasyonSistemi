@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace HastaneOtomasyonSistemi.Models
 {
@@ -30,9 +31,11 @@ namespace HastaneOtomasyonSistemi.Models
         public string Sifre { get; set; }
 
 		[DisplayName("Poliklinik")]
-		public int? poliklinikId { get; set; }
-		[ForeignKey("poliklinikId")]
-		public poliklinik poliklinik { get; set; }
+		public int poliklinikId { get; set; }
+
+        [ForeignKey("poliklinikId")]
+        [ValidateNever]
+        public poliklinik? poliklinik { get; set; }
 
     }
 }

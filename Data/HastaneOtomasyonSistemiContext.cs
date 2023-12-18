@@ -18,7 +18,7 @@ namespace HastaneOtomasyonSistemi.Data
 
         public DbSet<HastaneOtomasyonSistemi.Models.Hasta>? Hasta { get; set; }
 
-        public DbSet<HastaneOtomasyonSistemi.Models.randevu>? randevu { get; set; }
+        public DbSet<HastaneOtomasyonSistemi.Models.Randevu>? Randevu { get; set; }
 
         public DbSet<HastaneOtomasyonSistemi.Models.Admin>? Admin { get; set; }
 

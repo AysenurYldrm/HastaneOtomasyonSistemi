@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HastaneOtomasyonSistemi.Models.randevu>
+﻿@model IEnumerable<HastaneOtomasyonSistemi.Models.Randevu>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,16 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.hastaId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.hasta)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.RandevuTarihi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.doktorId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.doktor)
@@ -34,16 +28,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.hastaId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.hasta.Ad)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RandevuTarihi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.doktorId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.doktor.Ad)

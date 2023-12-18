@@ -67,8 +67,7 @@ namespace HastaneOtomasyonSistemi.Migrations
                         .HasMaxLength(16)
                         .HasColumnType("nvarchar(16)");
 
-                    b.Property<int?>("poliklinikId")
-                        .IsRequired()
+                    b.Property<int>("poliklinikId")
                         .HasColumnType("int");
 
                     b.Property<string>("soyAd")
@@ -134,10 +133,13 @@ namespace HastaneOtomasyonSistemi.Migrations
                     b.ToTable("poliklinik");
                 });
 
-            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.randevu", b =>
+            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Randevu", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("RandevuTarihi")
                         .HasColumnType("datetime2");
@@ -150,7 +152,11 @@ namespace HastaneOtomasyonSistemi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("randevu");
+                    b.HasIndex("doktorId");
+
+                    b.HasIndex("hastaId");
+
+                    b.ToTable("Randevu");
                 });
 
             modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Doktor", b =>
@@ -164,23 +170,28 @@ namespace HastaneOtomasyonSistemi.Migrations
                     b.Navigation("poliklinik");
                 });
 
-            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.randevu", b =>
+            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Randevu", b =>
                 {
                     b.HasOne("HastaneOtomasyonSistemi.Models.Doktor", "doktor")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("doktorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("HastaneOtomasyonSistemi.Models.Hasta", "hasta")
-                        .WithMany()
-                        .HasForeignKey("Id")
+                        .WithMany("Randevular")
+                        .HasForeignKey("hastaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("doktor");
 
                     b.Navigation("hasta");
+                });
+
+            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Hasta", b =>
+                {
+                    b.Navigation("Randevular");
                 });
 #pragma warning restore 612, 618
         }

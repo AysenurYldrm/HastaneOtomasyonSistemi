@@ -77,26 +77,27 @@ namespace HastaneOtomasyonSistemi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "randevu",
+                name: "Randevu",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     hastaId = table.Column<int>(type: "int", nullable: false),
                     RandevuTarihi = table.Column<DateTime>(type: "datetime2", nullable: false),
                     doktorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_randevu", x => x.Id);
+                    table.PrimaryKey("PK_Randevu", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_randevu_Doktor_Id",
-                        column: x => x.Id,
+                        name: "FK_Randevu_Doktor_doktorId",
+                        column: x => x.doktorId,
                         principalTable: "Doktor",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_randevu_Hasta_Id",
-                        column: x => x.Id,
+                        name: "FK_Randevu_Hasta_hastaId",
+                        column: x => x.hastaId,
                         principalTable: "Hasta",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -106,6 +107,16 @@ namespace HastaneOtomasyonSistemi.Migrations
                 name: "IX_Doktor_poliklinikId",
                 table: "Doktor",
                 column: "poliklinikId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Randevu_doktorId",
+                table: "Randevu",
+                column: "doktorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Randevu_hastaId",
+                table: "Randevu",
+                column: "hastaId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -114,7 +125,7 @@ namespace HastaneOtomasyonSistemi.Migrations
                 name: "Admin");
 
             migrationBuilder.DropTable(
-                name: "randevu");
+                name: "Randevu");
 
             migrationBuilder.DropTable(
                 name: "Doktor");
