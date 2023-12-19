@@ -23,6 +23,7 @@ h1 {
 
 h2 {
     text-align: center;
+    
 }
 
 p {
@@ -46,8 +47,8 @@ a {
 
 button {
     border-radius: 20px;
-    border: 1px solid #FF4B2B;
-    background-color: #FF4B2B;
+    border: 1px solid #2596be;
+    background-color: #2596be;
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;
@@ -159,9 +160,9 @@ input {
 }
 
 .overlay {
-    background: #FF416C;
-    background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-    background: linear-gradient(to right, #FF4B2B, #FF416C);
+    background: #2596be;
+    background: -webkit-linear-gradient(to right, #2596be, #3d7ab1);
+    background: linear-gradient(to right, #2596be, #3d7ab1);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
@@ -242,7 +243,7 @@ footer {
     }
 
     footer i {
-        color: red;
+        color: deepskyblue;
     }
 
     footer a {

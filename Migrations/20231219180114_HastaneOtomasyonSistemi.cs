@@ -41,6 +41,19 @@ namespace HastaneOtomasyonSistemi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "il",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ilAd = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_il", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "poliklinik",
                 columns: table => new
                 {
@@ -51,6 +64,46 @@ namespace HastaneOtomasyonSistemi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_poliklinik", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Hastane",
+                columns: table => new
+                {
+                    HastaneId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HastaneAd = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ilId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Hastane", x => x.HastaneId);
+                    table.ForeignKey(
+                        name: "FK_Hastane_il_ilId",
+                        column: x => x.ilId,
+                        principalTable: "il",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ilce",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ilceAd = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ilId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ilce", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ilce_il_ilId",
+                        column: x => x.ilId,
+                        principalTable: "il",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -84,6 +137,7 @@ namespace HastaneOtomasyonSistemi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     hastaId = table.Column<int>(type: "int", nullable: false),
                     RandevuTarihi = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RandevuDurumu = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     doktorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -109,6 +163,16 @@ namespace HastaneOtomasyonSistemi.Migrations
                 column: "poliklinikId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Hastane_ilId",
+                table: "Hastane",
+                column: "ilId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ilce_ilId",
+                table: "ilce",
+                column: "ilId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Randevu_doktorId",
                 table: "Randevu",
                 column: "doktorId");
@@ -125,7 +189,16 @@ namespace HastaneOtomasyonSistemi.Migrations
                 name: "Admin");
 
             migrationBuilder.DropTable(
+                name: "Hastane");
+
+            migrationBuilder.DropTable(
+                name: "ilce");
+
+            migrationBuilder.DropTable(
                 name: "Randevu");
+
+            migrationBuilder.DropTable(
+                name: "il");
 
             migrationBuilder.DropTable(
                 name: "Doktor");

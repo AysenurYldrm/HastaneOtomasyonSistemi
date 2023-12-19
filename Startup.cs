@@ -31,12 +31,16 @@ namespace HastaneOtomasyonSistemi
                     options.LoginPath = "/Admin/Login"; // Giriş yapılmamışsa yönlendirilecek sayfa
                
                 })
-				.AddCookie("User", options =>
+                .AddCookie("User", options =>
+			     {
+				    options.LoginPath = "/Hasta/Login"; // Giriş yapılmamışsa yönlendirilecek sayfa
+			    })
+				.AddCookie("Userdok", options =>
 				{
 					options.LoginPath = "/Doktor/Login"; // Giriş yapılmamışsa yönlendirilecek sayfa
-				});
+				}); ;
 
-            services.AddControllersWithViews();
+			services.AddControllersWithViews();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

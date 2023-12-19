@@ -33,7 +33,7 @@ namespace HastaneOtomasyonSistemi.Controllers
         [AllowAnonymous]
         public ActionResult Login(Doktor doktor)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
 
                 var loginDoktor = _context.Doktor.FirstOrDefault(x => x.KimlikNo == doktor.KimlikNo && x.Sifre == doktor.Sifre);
@@ -64,7 +64,7 @@ namespace HastaneOtomasyonSistemi.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            return RedirectToAction("Login", "Home"); // Çıkış yapıldıktan sonra yönlendirilecek sayfa
+            return RedirectToAction("LoginDoktor", "Doktor"); // Çıkış yapıldıktan sonra yönlendirilecek sayfa
         }
 
         // GET: Doktor

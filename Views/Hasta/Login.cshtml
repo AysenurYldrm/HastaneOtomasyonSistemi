@@ -1,0 +1,59 @@
+﻿@model HastaneOtomasyonSistemi.Models.Hasta
+
+@{
+	ViewData["Title"] = "Login";
+}
+@{
+	Layout = null;
+}
+
+
+<link rel="stylesheet" href="~/css/login.css" />
+<h2>HASTA VE DOKTOR GİRİŞ EKRANI</h2>
+<div class="container" id="container">
+	<div class="form-container sign-up-container">
+
+		<form asp-action="Login" method="post">
+			<h2>DOKTOR GİRİŞ</h2>
+			<div asp-validation-summary="ModelOnly"></div>
+
+			<input asp-for="KimlikNo"  placeholder="Kimlik No" />
+
+			<input asp-for="Sifre" type="password"  placeholder="Şifre" />
+
+			<button>GİRİŞ</button>
+		</form>
+	</div>
+	<div class="form-container sign-in-container">
+
+		<form asp-action="Login" method="post">
+			<h2>HASTA GİRİŞ</h2>
+			<div asp-validation-summary="ModelOnly" ></div>
+			
+			<input asp-for="KimlikNo" type="email"  placeholder="Kimlik No" />
+
+			<input asp-for="Sifre" type="password"   placeholder="Şifre" />
+	
+			<button>GİRİŞ</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Hoşgeldiniz!</h1>
+				<p>Doktor paneline erişmek ya da diğer işlemleriniz için lütfen giriş yapınız. </p>
+				<button class="ghost" id="signIn">Hasta Giriş</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Hoşgeldiniz!</h1>
+				<p>Randevu oluşturmak ya da diğer işlemleriniz için lütfen giriş yapınız.</p>
+				<button class="ghost" id="signUp">Doktor Giriş</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer>
+
+	<script src="~/js/login.js"></script>
+</footer>

@@ -116,6 +116,67 @@ namespace HastaneOtomasyonSistemi.Migrations
                     b.ToTable("Hasta");
                 });
 
+            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Hastane", b =>
+                {
+                    b.Property<int>("HastaneId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HastaneId"), 1L, 1);
+
+                    b.Property<string>("HastaneAd")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ilId")
+                        .HasColumnType("int");
+
+                    b.HasKey("HastaneId");
+
+                    b.HasIndex("ilId");
+
+                    b.ToTable("Hastane");
+                });
+
+            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.il", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ilAd")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("il");
+                });
+
+            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.ilce", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ilId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ilceAd")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ilId");
+
+                    b.ToTable("ilce");
+                });
+
             modelBuilder.Entity("HastaneOtomasyonSistemi.Models.poliklinik", b =>
                 {
                     b.Property<int>("Id")
@@ -140,6 +201,10 @@ namespace HastaneOtomasyonSistemi.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("RandevuDurumu")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("RandevuTarihi")
                         .HasColumnType("datetime2");
@@ -170,6 +235,28 @@ namespace HastaneOtomasyonSistemi.Migrations
                     b.Navigation("poliklinik");
                 });
 
+            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Hastane", b =>
+                {
+                    b.HasOne("HastaneOtomasyonSistemi.Models.il", "il")
+                        .WithMany()
+                        .HasForeignKey("ilId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("il");
+                });
+
+            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.ilce", b =>
+                {
+                    b.HasOne("HastaneOtomasyonSistemi.Models.il", "il")
+                        .WithMany("ilceler")
+                        .HasForeignKey("ilId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("il");
+                });
+
             modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Randevu", b =>
                 {
                     b.HasOne("HastaneOtomasyonSistemi.Models.Doktor", "doktor")
@@ -192,6 +279,11 @@ namespace HastaneOtomasyonSistemi.Migrations
             modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Hasta", b =>
                 {
                     b.Navigation("Randevular");
+                });
+
+            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.il", b =>
+                {
+                    b.Navigation("ilceler");
                 });
 #pragma warning restore 612, 618
         }

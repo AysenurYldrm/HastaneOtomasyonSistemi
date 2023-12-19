@@ -1,50 +1,40 @@
-﻿using HastaneOtomasyonSistemi.Models;
+﻿using HastaneOtomasyonSistemi.Data;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using HastaneOtomasyonSistemi.Data;
+using HastaneOtomasyonSistemi.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 using System.Security.Claims;
-using HastaneOtomasyonSistemi.Data;
 
 namespace HastaneOtomasyonSistemi.Controllers
 {
-    public class HomeController : Controller
+    public class LoginController : Controller
     {
-        //private readonly ILogger<HomeController> _logger; 
-        private readonly HastaneOtomasyonSistemiContext _context;
-
-        public HomeController(HastaneOtomasyonSistemiContext context)
-        {
-            _context = context;
-        }
-
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
-
         public IActionResult Index()
         {
             return View();
         }
+        private readonly HastaneOtomasyonSistemiContext _context;
 
-        public IActionResult Privacy()
+        public LoginController(HastaneOtomasyonSistemiContext context)
         {
-            return View();
-        }// GET: /Account/Login
-        public ActionResult Login()
-        {
-            return View();
+            _context = context;
         }
 
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> Login(Doktor doktor)
+        public ActionResult Login(Doktor doktor)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
 
                 var loginDoktor = _context.Doktor.FirstOrDefault(x => x.KimlikNo == doktor.KimlikNo && x.Sifre == doktor.Sifre);
@@ -57,9 +47,9 @@ namespace HastaneOtomasyonSistemi.Controllers
                     };
                     var useridenty = new ClaimsIdentity(claims, "Login");
                     ClaimsPrincipal principal = new ClaimsPrincipal(useridenty);
-                    await HttpContext.SignInAsync(principal);
+                    HttpContext.SignInAsync(principal);
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Doktor");
                 }
                 else
                 {
@@ -76,12 +66,6 @@ namespace HastaneOtomasyonSistemi.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             return RedirectToAction("Login", "Home"); // Çıkış yapıldıktan sonra yönlendirilecek sayfa
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

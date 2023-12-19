@@ -23,5 +23,11 @@ namespace HastaneOtomasyonSistemi.Data
         public DbSet<HastaneOtomasyonSistemi.Models.Admin>? Admin { get; set; }
 
         public DbSet<HastaneOtomasyonSistemi.Models.poliklinik>? poliklinik { get; set; }
+
+        public DbSet<HastaneOtomasyonSistemi.Models.il>? il { get; set; }
+
+        public DbSet<HastaneOtomasyonSistemi.Models.ilce>? ilce { get; set; }
+
+        public DbSet<HastaneOtomasyonSistemi.Models.Hastane>? Hastane { get; set; }
     }
 }

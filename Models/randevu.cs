@@ -27,8 +27,11 @@ namespace HastaneOtomasyonSistemi.Models
         [DisplayName("Randevu Tarihi")]
         public DateTime RandevuTarihi { get; set; }
 
+		[DisplayName("Randevu Durumu")]
+		public string RandevuDurumu { get; set; }
 
-        [DisplayName("doktor")]
+
+		[DisplayName("doktor")]
         public int doktorId { get; set; }
 
         [ForeignKey("doktorId")]

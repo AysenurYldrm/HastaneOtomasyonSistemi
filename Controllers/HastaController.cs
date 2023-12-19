@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HastaneOtomasyonSistemi.Data;
 using HastaneOtomasyonSistemi.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace HastaneOtomasyonSistemi.Controllers
 {
@@ -18,9 +22,52 @@ namespace HastaneOtomasyonSistemi.Controllers
         {
             _context = context;
         }
+		// GET: /Account/Login
+		public ActionResult Login()
+		{
+			return View();
+		}
 
-        // GET: Hasta
-        public async Task<IActionResult> Index()
+		// POST: /Account/Login
+		[HttpPost]
+		[AllowAnonymous]
+		public ActionResult Login(Hasta hasta)
+		{
+			if (!ModelState.IsValid)
+			{
+
+				var loginAdmin = _context.Hasta.FirstOrDefault(x => x.KimlikNo == hasta.KimlikNo && x.Sifre == hasta.Sifre);
+
+				if (loginAdmin != null)
+				{
+					var claims = new List<Claim>
+					{
+						new Claim(ClaimTypes.Name,hasta.KimlikNo)
+					};
+					var useridenty = new ClaimsIdentity(claims, "Login");
+					ClaimsPrincipal principal = new ClaimsPrincipal(useridenty);
+					HttpContext.SignInAsync(principal);
+					ViewData["Eposta"] = useridenty;
+					return RedirectToAction("Index", "Hasta");
+				}
+				else
+				{
+					ViewBag.Uyari = "E-postanız yada şifreniz yanlış";
+				}
+			}
+			return View();
+
+		}
+
+		// GET: /Account/Logout
+		public async Task<IActionResult> Logout()
+		{
+			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+			return RedirectToAction("Login", "Hasta"); // Çıkış yapıldıktan sonra yönlendirilecek sayfa
+		}
+		// GET: Hasta
+		public async Task<IActionResult> Index()
         {
               return _context.Hasta != null ? 
                           View(await _context.Hasta.ToListAsync()) :
