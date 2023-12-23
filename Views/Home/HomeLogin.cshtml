@@ -1,0 +1,74 @@
+﻿@* @model HastaneOtomasyonSistemi.Models.Doktor *@
+@model MultipleModelsViewModel
+@{
+	ViewData["Title"] = "Login";
+	Layout = null;
+}
+
+<head>
+
+	<link href="~/css/login.css" rel="stylesheet" />
+	
+</head>
+
+<h2>HASTA VE DOKTOR GİRİŞ EKRANI</h2>
+
+
+<div class="container" id="container">
+	<div class="form-container sign-in-container">
+
+		<form asp-action="HomeLogin" method="post">
+			<h2>HASTA GİRİŞ</h2>
+			<div asp-validation-summary="ModelOnly"></div>
+
+			<input asp-for="hasta.KimlikNo" placeholder="Kimlik No" />
+
+			<input asp-for="hasta.Sifre" type="password" placeholder="Şifre" />
+			@if (!string.IsNullOrEmpty(ViewBag.UyariH))
+			{
+				<p style="color: red;">@ViewBag.UyariH</p>
+			}
+			<button type="submit">GİRİŞ</button>
+		</form>
+	</div>
+	<div class="form-container sign-up-container">
+
+		<form asp-action="HomeLogin" method="post">
+			<h2>DOKTOR GİRİŞ</h2>
+			<div asp-validation-summary="ModelOnly"></div>
+
+			<input asp-for="doktor.KimlikNo" placeholder="Kimlik No" />
+
+			<input asp-for="doktor.Sifre" type="password" placeholder="Şifre" />
+			@if (!string.IsNullOrEmpty(ViewBag.UyariD))
+			{
+				<p style="color: red;">@ViewBag.UyariD</p>
+			}
+			<button type="submit">GİRİŞ</button>
+		</form>
+
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Hoşgeldiniz!</h1>
+				<p>Doktor paneline erişmek ya da diğer işlemleriniz için lütfen giriş yapınız. </p>
+				<button class="ghost" id="signIn">Hasta Giriş</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Hoşgeldiniz!</h1>
+				<p>Randevu oluşturmak ya da diğer işlemleriniz için lütfen giriş yapınız.</p>
+				<button class="ghost" id="signUp">Doktor Giriş</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer>
+	Created with <i class="fa fa-heart"></i> by
+	<a target="_blank" href="#">Ayşenur Yıldırım</a>
+	- Read how I created this
+	<a target="_blank" href="#">here</a>.
+
+	<script src="~/js/login.js"></script>
+</footer>

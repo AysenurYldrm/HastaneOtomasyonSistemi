@@ -1,5 +1,6 @@
 ﻿using HastaneOtomasyonSistemi.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Claims;
 using HastaneOtomasyonSistemi.Data;
-
+using Microsoft.AspNetCore.Http;
+using System.Linq;
 namespace HastaneOtomasyonSistemi.Controllers
 {
     public class HomeController : Controller
@@ -33,45 +35,65 @@ namespace HastaneOtomasyonSistemi.Controllers
         public IActionResult Privacy()
         {
             return View();
-        }// GET: /Account/Login
-        public ActionResult Login()
-        {
-            return View();
         }
 
-        // POST: /Account/Login
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<ActionResult> Login(Doktor doktor)
-        {
-            if (!ModelState.IsValid)
-            {
+		public ActionResult HomeLogin()
+		{
+			return View();
+		}
 
-                var loginDoktor = _context.Doktor.FirstOrDefault(x => x.KimlikNo == doktor.KimlikNo && x.Sifre == doktor.Sifre);
+		[HttpPost]
+		[AllowAnonymous]
+		public ActionResult HomeLogin(Doktor doktor, Hasta hasta)
+		{
+			var loginHasta = _context.Hasta.FirstOrDefault(y => y.KimlikNo == hasta.KimlikNo && y.Sifre == hasta.Sifre);
 
-                if (loginDoktor != null)
-                {
-                    var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name,doktor.KimlikNo)
-                    };
-                    var useridenty = new ClaimsIdentity(claims, "Login");
-                    ClaimsPrincipal principal = new ClaimsPrincipal(useridenty);
-                    await HttpContext.SignInAsync(principal);
+			var loginDoktor = _context.Doktor.FirstOrDefault(x => x.KimlikNo == doktor.KimlikNo && x.Sifre == doktor.Sifre);
 
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ViewBag.Uyari = "E-postanız ya da şifreniz yanlış";
-                }
-            }
-            return View();
+			if (!string.IsNullOrEmpty(hasta.KimlikNo) || !string.IsNullOrEmpty(hasta.Sifre))
+			{ 
+				if (loginHasta != null)
+				{
+					var claims = new List<Claim>
+					{
+						new Claim(ClaimTypes.Name,hasta.KimlikNo)
+					};
 
-        }
+					var useridenty = new ClaimsIdentity(claims, "Login");
+					ClaimsPrincipal principal = new ClaimsPrincipal(useridenty);
+					HttpContext.SignInAsync(principal);
+					return RedirectToAction("Index", "Hasta");
+				}
+				else
+				{
+					ViewBag.UyariH = "E-postanız ya da şifreniz yanlış";
+				}
+			}
+			if (!string.IsNullOrEmpty(doktor.KimlikNo) || !string.IsNullOrEmpty(doktor.Sifre))
+			{
+				if (loginDoktor != null)
+				{
+					var claims = new List<Claim>
+					{
+						new Claim(ClaimTypes.Name,doktor.KimlikNo)
+					};
 
-        // GET: /Account/Logout
-        public async Task<IActionResult> Logout()
+					var useridenty = new ClaimsIdentity(claims, "Login");
+					ClaimsPrincipal principal = new ClaimsPrincipal(useridenty);
+					HttpContext.SignInAsync(principal);
+					return RedirectToAction("Index", "Doktor");
+				}
+				else
+				{
+					ViewBag.UyariD = "E-postanız ya da şifreniz yanlış";
+				}
+			}
+
+			return View();
+
+		}
+		// GET: /Account/Logout
+		public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 

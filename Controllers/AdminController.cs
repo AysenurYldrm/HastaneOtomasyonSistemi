@@ -54,7 +54,7 @@ namespace HastaneOtomasyonSistemi.Controllers
                 }
                 else
                 {
-                    ViewBag.Uyari = "E-postanız yada şifreniz yanlış";
+                    ViewBag.UyariA = "E-postanız yada şifreniz yanlış";
                 }
             }
             return View();

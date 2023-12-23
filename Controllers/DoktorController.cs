@@ -7,10 +7,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HastaneOtomasyonSistemi.Data;
 using HastaneOtomasyonSistemi.Models;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Collections.Generic;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Options;
+
 
 namespace HastaneOtomasyonSistemi.Controllers
 {
@@ -22,53 +25,43 @@ namespace HastaneOtomasyonSistemi.Controllers
         {
             _context = context;
         }
-        // GET: /Account/Login
-        public ActionResult Login()
-        {
-            return View();
-        }
+		public ActionResult DLogin()
+		{
+			return View();
+		}
 
-        // POST: /Account/Login
-        [HttpPost]
-        [AllowAnonymous]
-        public ActionResult Login(Doktor doktor)
-        {
-            if (!ModelState.IsValid)
-            {
+		[HttpPost]
+		[AllowAnonymous]
+		public ActionResult DLogin(Doktor doktor)
+		{
+				var loginDoktor = _context.Doktor.FirstOrDefault(x => x.KimlikNo == doktor.KimlikNo && x.Sifre == doktor.Sifre);
 
-                var loginDoktor = _context.Doktor.FirstOrDefault(x => x.KimlikNo == doktor.KimlikNo && x.Sifre == doktor.Sifre);
+				if (loginDoktor != null)
+				{
+					var claims = new List<Claim>
+					{
+						new Claim(ClaimTypes.Name,doktor.KimlikNo)
+					};
 
-                if (loginDoktor != null)
-                {
-                    var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name,doktor.KimlikNo)
-                    };
-                    var useridenty = new ClaimsIdentity(claims, "Login");
-                    ClaimsPrincipal principal = new ClaimsPrincipal(useridenty);
-                    HttpContext.SignInAsync(principal);
+					var useridenty = new ClaimsIdentity(claims, "DLogin");
+					ClaimsPrincipal principal = new ClaimsPrincipal(useridenty);
+					HttpContext.SignInAsync(principal);
+					return RedirectToAction("Index", "Doktor");
 
-                    return RedirectToAction("Index", "Doktor");
-                }
-                else
-                {
-                    ViewBag.Uyari = "E-postanız ya da şifreniz yanlış";
-                }
-            }
-            return View();
+				}
+				else
+				{
+					ViewBag.Uyari = "E-postanız ya da şifreniz yanlış";
+				}
 
-        }
+			
+			return View();
 
-        // GET: /Account/Logout
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+		}
+		// GET: /Account/Login
 
-            return RedirectToAction("LoginDoktor", "Doktor"); // Çıkış yapıldıktan sonra yönlendirilecek sayfa
-        }
-
-        // GET: Doktor
-        public async Task<IActionResult> Index()
+		// GET: Doktor
+		public async Task<IActionResult> Index()
         {
             var hastaneOtomasyonSistemiContext = _context.Doktor.Include(d => d.poliklinik);
             return View(await hastaneOtomasyonSistemiContext.ToListAsync());

@@ -22,50 +22,44 @@ namespace HastaneOtomasyonSistemi.Controllers
         {
             _context = context;
         }
-		// GET: /Account/Login
 		public ActionResult Login()
 		{
 			return View();
 		}
-
-		// POST: /Account/Login
 		[HttpPost]
 		[AllowAnonymous]
-		public ActionResult Login(Hasta hasta)
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> Login(Hasta hasta)
 		{
-			if (!ModelState.IsValid)
+			if (ModelState.IsValid)
 			{
 
-				var loginAdmin = _context.Hasta.FirstOrDefault(x => x.KimlikNo == hasta.KimlikNo && x.Sifre == hasta.Sifre);
+				var loginHasta = _context.Hasta.FirstOrDefault(x => x.KimlikNo == hasta.KimlikNo && x.Sifre == hasta.Sifre);
 
-				if (loginAdmin != null)
+				if (loginHasta != null)
 				{
 					var claims = new List<Claim>
 					{
 						new Claim(ClaimTypes.Name,hasta.KimlikNo)
 					};
+
+
 					var useridenty = new ClaimsIdentity(claims, "Login");
 					ClaimsPrincipal principal = new ClaimsPrincipal(useridenty);
-					HttpContext.SignInAsync(principal);
-					ViewData["Eposta"] = useridenty;
+					await HttpContext.SignInAsync(principal);
 					return RedirectToAction("Index", "Hasta");
+
+
 				}
 				else
 				{
-					ViewBag.Uyari = "E-postanız yada şifreniz yanlış";
+					ViewBag.Uyari = "E-postanız ya da şifreniz yanlış";
 				}
 			}
 			return View();
 
 		}
 
-		// GET: /Account/Logout
-		public async Task<IActionResult> Logout()
-		{
-			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-			return RedirectToAction("Login", "Hasta"); // Çıkış yapıldıktan sonra yönlendirilecek sayfa
-		}
 		// GET: Hasta
 		public async Task<IActionResult> Index()
         {

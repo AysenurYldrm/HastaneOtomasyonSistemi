@@ -1,39 +1,31 @@
 ﻿@model HastaneOtomasyonSistemi.Models.Hasta
-
+@* @model MultipleModelsViewModel *@
 @{
 	ViewData["Title"] = "Login";
-}
-@{
 	Layout = null;
 }
 
+<head>
 
-<link rel="stylesheet" href="~/css/login.css" />
-<h2>HASTA VE DOKTOR GİRİŞ EKRANI</h2>
+	<link href="~/css/login.css" rel="stylesheet" />
+	
+</head>
+
+<h2>HASTA GİRİŞ EKRANI</h2>
+
+
 <div class="container" id="container">
-	<div class="form-container sign-up-container">
-
-		<form asp-action="Login" method="post">
-			<h2>DOKTOR GİRİŞ</h2>
-			<div asp-validation-summary="ModelOnly"></div>
-
-			<input asp-for="KimlikNo"  placeholder="Kimlik No" />
-
-			<input asp-for="Sifre" type="password"  placeholder="Şifre" />
-
-			<button>GİRİŞ</button>
-		</form>
-	</div>
+	
 	<div class="form-container sign-in-container">
 
-		<form asp-action="Login" method="post">
+		<form  asp-action="Login" method="post">
 			<h2>HASTA GİRİŞ</h2>
-			<div asp-validation-summary="ModelOnly" ></div>
-			
-			<input asp-for="KimlikNo" type="email"  placeholder="Kimlik No" />
+			<div asp-validation-summary="ModelOnly"></div>
 
-			<input asp-for="Sifre" type="password"   placeholder="Şifre" />
-	
+			<input asp-for="KimlikNo" placeholder="Kimlik No" />
+
+			<input asp-for="Sifre" type="password" placeholder="Şifre" />
+
 			<button>GİRİŞ</button>
 		</form>
 	</div>
@@ -47,13 +39,17 @@
 			<div class="overlay-panel overlay-right">
 				<h1>Hoşgeldiniz!</h1>
 				<p>Randevu oluşturmak ya da diğer işlemleriniz için lütfen giriş yapınız.</p>
-				<button class="ghost" id="signUp">Doktor Giriş</button>
+				<button class="ghost" id="signUp">HASTA KAYIT</button>
 			</div>
 		</div>
 	</div>
 </div>
 
 <footer>
+	Created with <i class="fa fa-heart"></i> by
+	<a target="_blank" href="#">Ayşenur Yıldırım</a>
+	- Read how I created this
+	<a target="_blank" href="#">here</a>.
 
 	<script src="~/js/login.js"></script>
 </footer>

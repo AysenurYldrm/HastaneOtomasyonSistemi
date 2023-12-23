@@ -131,9 +131,14 @@ namespace HastaneOtomasyonSistemi.Migrations
                     b.Property<int>("ilId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ilceId")
+                        .HasColumnType("int");
+
                     b.HasKey("HastaneId");
 
                     b.HasIndex("ilId");
+
+                    b.HasIndex("ilceId");
 
                     b.ToTable("Hastane");
                 });
@@ -243,13 +248,21 @@ namespace HastaneOtomasyonSistemi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("HastaneOtomasyonSistemi.Models.ilce", "ilce")
+                        .WithMany()
+                        .HasForeignKey("ilceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("il");
+
+                    b.Navigation("ilce");
                 });
 
             modelBuilder.Entity("HastaneOtomasyonSistemi.Models.ilce", b =>
                 {
                     b.HasOne("HastaneOtomasyonSistemi.Models.il", "il")
-                        .WithMany("ilceler")
+                        .WithMany()
                         .HasForeignKey("ilId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -279,11 +292,6 @@ namespace HastaneOtomasyonSistemi.Migrations
             modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Hasta", b =>
                 {
                     b.Navigation("Randevular");
-                });
-
-            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.il", b =>
-                {
-                    b.Navigation("ilceler");
                 });
 #pragma warning restore 612, 618
         }

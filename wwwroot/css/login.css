@@ -1,12 +1,13 @@
 ﻿
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
-* {
+*{
     box-sizing: border-box;
 }
 
 body {
-    background: #f6f5f7;
+    background: url('../img/login.jpg') center center no-repeat;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,7 +24,6 @@ h1 {
 
 h2 {
     text-align: center;
-    
 }
 
 p {

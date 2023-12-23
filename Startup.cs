@@ -26,19 +26,19 @@ namespace HastaneOtomasyonSistemi
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie("Admin",options =>
+                .AddCookie("Admin", options =>
                 {
                     options.LoginPath = "/Admin/Login"; // Giriş yapılmamışsa yönlendirilecek sayfa
-               
+
                 })
-                .AddCookie("User", options =>
-			     {
-				    options.LoginPath = "/Hasta/Login"; // Giriş yapılmamışsa yönlendirilecek sayfa
-			    })
-				.AddCookie("Userdok", options =>
+                .AddCookie("HomeLogin", options =>
+                 {
+                     options.LoginPath = "/HomeLogin/Login"; // Giriş yapılmamışsa yönlendirilecek sayfa
+                 })
+				.AddCookie("Doktor", options =>
 				{
-					options.LoginPath = "/Doktor/Login"; // Giriş yapılmamışsa yönlendirilecek sayfa
-				}); ;
+					options.LoginPath = "/Doktor/DLogin"; // Giriş yapılmamışsa yönlendirilecek sayfa
+				});
 
 			services.AddControllersWithViews();
         }

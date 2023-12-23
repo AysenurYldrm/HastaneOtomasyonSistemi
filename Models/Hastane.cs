@@ -19,11 +19,11 @@ namespace HastaneOtomasyonSistemi.Models
 		[ValidateNever]
 		public il? il { get; set;}
 
-		//[DisplayName("ilce")]
-		//public int ilceId { get; set; }
-		//[ForeignKey("ilceId")]
-		//[ValidateNever]
-		//public ilce? ilce { get; set; }
+		[DisplayName("ilce")]
+		public int ilceId { get; set; }
+		[ForeignKey("ilceId")]
+		[ValidateNever]
+		public ilce? ilce { get; set; }
 
 
 	}
