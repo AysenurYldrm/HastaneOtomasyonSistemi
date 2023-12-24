@@ -34,12 +34,8 @@ namespace HastaneOtomasyonSistemi
                 .AddCookie("HomeLogin", options =>
                  {
                      options.LoginPath = "/HomeLogin/Login"; // Giriş yapılmamışsa yönlendirilecek sayfa
-                 })
-				.AddCookie("Doktor", options =>
-				{
-					options.LoginPath = "/Doktor/DLogin"; // Giriş yapılmamışsa yönlendirilecek sayfa
-				});
-
+                 });
+				
 			services.AddControllersWithViews();
         }
 

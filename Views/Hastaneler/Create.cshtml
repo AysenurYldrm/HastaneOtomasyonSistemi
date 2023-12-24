@@ -1,0 +1,63 @@
+﻿@model HastaneOtomasyonSistemi.Models.Hastaneler
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Hastane</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="HastaneAd" class="control-label"></label>
+                <input asp-for="HastaneAd" class="form-control" />
+                <span asp-validation-for="HastaneAd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ilId" class="control-label"></label>
+                <select asp-for="ilId" asp-items="@(new SelectList(ViewBag.Iller, "Id", "ilAd"))" class="form-control" id="ilSelect"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ilceId" class="control-label"></label>
+                <select asp-for="ilceId" asp-items="@(new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "ilceAd"))" class="form-control" id="ilceSelect"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+   @*  @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    } *@
+    <script>
+        $(document).ready(function () {
+            $("#ilSelect").change(function () {
+                var ilId = $(this).val();
+                $.ajax({
+                    url: '/Hastaneler/GetIlceler',
+                    type: 'GET',
+                    data: { ilId: ilId },
+                    success: function (data) {
+                        var ilceSelect = $("#ilceSelect");
+                        ilceSelect.empty();
+                        $.each(data, function (i, item) {
+                            ilceSelect.append($('<option>').text(item.text).attr('value', item.value));
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

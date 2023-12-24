@@ -116,13 +116,13 @@ namespace HastaneOtomasyonSistemi.Migrations
                     b.ToTable("Hasta");
                 });
 
-            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Hastane", b =>
+            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Hastaneler", b =>
                 {
-                    b.Property<int>("HastaneId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HastaneId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("HastaneAd")
                         .IsRequired()
@@ -134,13 +134,13 @@ namespace HastaneOtomasyonSistemi.Migrations
                     b.Property<int>("ilceId")
                         .HasColumnType("int");
 
-                    b.HasKey("HastaneId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ilId");
 
                     b.HasIndex("ilceId");
 
-                    b.ToTable("Hastane");
+                    b.ToTable("Hastaneler");
                 });
 
             modelBuilder.Entity("HastaneOtomasyonSistemi.Models.il", b =>
@@ -190,11 +190,16 @@ namespace HastaneOtomasyonSistemi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("HastanelerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("PoliklinikIsmi")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HastanelerId");
 
                     b.ToTable("poliklinik");
                 });
@@ -240,7 +245,7 @@ namespace HastaneOtomasyonSistemi.Migrations
                     b.Navigation("poliklinik");
                 });
 
-            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Hastane", b =>
+            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Hastaneler", b =>
                 {
                     b.HasOne("HastaneOtomasyonSistemi.Models.il", "il")
                         .WithMany()
@@ -249,7 +254,7 @@ namespace HastaneOtomasyonSistemi.Migrations
                         .IsRequired();
 
                     b.HasOne("HastaneOtomasyonSistemi.Models.ilce", "ilce")
-                        .WithMany()
+                        .WithMany("hastaneler")
                         .HasForeignKey("ilceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -262,12 +267,19 @@ namespace HastaneOtomasyonSistemi.Migrations
             modelBuilder.Entity("HastaneOtomasyonSistemi.Models.ilce", b =>
                 {
                     b.HasOne("HastaneOtomasyonSistemi.Models.il", "il")
-                        .WithMany()
+                        .WithMany("ilceler")
                         .HasForeignKey("ilId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("il");
+                });
+
+            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.poliklinik", b =>
+                {
+                    b.HasOne("HastaneOtomasyonSistemi.Models.Hastaneler", null)
+                        .WithMany("poliklinikler")
+                        .HasForeignKey("HastanelerId");
                 });
 
             modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Randevu", b =>
@@ -292,6 +304,21 @@ namespace HastaneOtomasyonSistemi.Migrations
             modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Hasta", b =>
                 {
                     b.Navigation("Randevular");
+                });
+
+            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Hastaneler", b =>
+                {
+                    b.Navigation("poliklinikler");
+                });
+
+            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.il", b =>
+                {
+                    b.Navigation("ilceler");
+                });
+
+            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.ilce", b =>
+                {
+                    b.Navigation("hastaneler");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,7 @@
 ﻿@model HastaneOtomasyonSistemi.Models.ilce
 
 @{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewData["Title"] = "Create";
 }
 
@@ -31,7 +32,7 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
+@* 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+} *@

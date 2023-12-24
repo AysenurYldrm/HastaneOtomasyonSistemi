@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<HastaneOtomasyonSistemi.Models.Randevu>
 
 @{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewData["Title"] = "Index";
 }
 
@@ -19,6 +20,9 @@
                 @Html.DisplayNameFor(model => model.RandevuTarihi)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.RandevuDurumu)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.doktor)
             </th>
             <th></th>
@@ -32,6 +36,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RandevuTarihi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RandevuDurumu)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.doktor.Ad)

@@ -28,6 +28,7 @@ namespace HastaneOtomasyonSistemi.Data
 
         public DbSet<HastaneOtomasyonSistemi.Models.ilce>? ilce { get; set; }
 
-        public DbSet<HastaneOtomasyonSistemi.Models.Hastane>? Hastane { get; set; }
+        public DbSet<HastaneOtomasyonSistemi.Models.Hastaneler>? Hastaneler { get; set; }
+
     }
 }

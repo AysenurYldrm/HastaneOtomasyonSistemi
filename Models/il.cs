@@ -12,6 +12,6 @@ namespace HastaneOtomasyonSistemi.Models
 		[Required]
 		[DisplayName("Şehir")]
 		public string ilAd { get; set; }
-		//public List<ilce> ilceler {  get; set; }
+		public List<ilce>? ilceler {  get; set; }
 	}
 }

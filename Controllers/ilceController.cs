@@ -82,7 +82,7 @@ namespace HastaneOtomasyonSistemi.Controllers
             {
                 return NotFound();
             }
-            ViewData["ilId"] = new SelectList(_context.il, "Id", "Id", ilce.ilId);
+            ViewData["ilId"] = new SelectList(_context.il, "Id", "ilAd", ilce.ilId);
             return View(ilce);
         }
 
@@ -118,7 +118,7 @@ namespace HastaneOtomasyonSistemi.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ilId"] = new SelectList(_context.il, "Id", "Id", ilce.ilId);
+            ViewData["ilId"] = new SelectList(_context.il, "Id", "ilAd", ilce.ilId);
             return View(ilce);
         }
 

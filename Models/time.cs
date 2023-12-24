@@ -25,14 +25,14 @@ namespace HastaneOtomasyonSistemi.Models
                 {
                     if ((dateTimeValue.Hour == 12 && dateTimeValue.Minute > 0) || (dateTimeValue.Hour == 13 && dateTimeValue.Minute < 30))
                     {
-                        return new ValidationResult("12:00 - 13:30 arası boş olmalıdır.");
+                        return new ValidationResult("12:00 - 13:30 öğle arasıdır.");
                     }
 
                     return ValidationResult.Success;
                 }
             }
 
-            return new ValidationResult("Geçerli bir saat giriniz.");
+            return new ValidationResult("Lütfen 08:00 - 17.00 arasında geçerli bir saat giriniz.");
         }
     }
     public class AfterCurrentDateAttribute : ValidationAttribute
@@ -43,13 +43,13 @@ namespace HastaneOtomasyonSistemi.Models
             {
                 DateTime selectedDate = (DateTime)value;
 
-                if (selectedDate < DateTime.Now)
+                if (selectedDate > DateTime.Now)
                 {
                     return ValidationResult.Success;
                 }
             }
 
-            return new ValidationResult("Geçerli bir tarih seçiniz.");
+            return new ValidationResult("Lütfen 08:00 - 17.00 arasında geçerli bir saat giriniz.");
         }
     }
 }

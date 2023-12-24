@@ -22,43 +22,7 @@ namespace HastaneOtomasyonSistemi.Controllers
         {
             _context = context;
         }
-		public ActionResult Login()
-		{
-			return View();
-		}
-		[HttpPost]
-		[AllowAnonymous]
-		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> Login(Hasta hasta)
-		{
-			if (ModelState.IsValid)
-			{
-
-				var loginHasta = _context.Hasta.FirstOrDefault(x => x.KimlikNo == hasta.KimlikNo && x.Sifre == hasta.Sifre);
-
-				if (loginHasta != null)
-				{
-					var claims = new List<Claim>
-					{
-						new Claim(ClaimTypes.Name,hasta.KimlikNo)
-					};
-
-
-					var useridenty = new ClaimsIdentity(claims, "Login");
-					ClaimsPrincipal principal = new ClaimsPrincipal(useridenty);
-					await HttpContext.SignInAsync(principal);
-					return RedirectToAction("Index", "Hasta");
-
-
-				}
-				else
-				{
-					ViewBag.Uyari = "E-postanız ya da şifreniz yanlış";
-				}
-			}
-			return View();
-
-		}
+	
 
 		// GET: Hasta
 		public async Task<IActionResult> Index()

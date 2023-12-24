@@ -25,40 +25,8 @@ namespace HastaneOtomasyonSistemi.Controllers
         {
             _context = context;
         }
-		public ActionResult DLogin()
-		{
-			return View();
-		}
-
-		[HttpPost]
-		[AllowAnonymous]
-		public ActionResult DLogin(Doktor doktor)
-		{
-				var loginDoktor = _context.Doktor.FirstOrDefault(x => x.KimlikNo == doktor.KimlikNo && x.Sifre == doktor.Sifre);
-
-				if (loginDoktor != null)
-				{
-					var claims = new List<Claim>
-					{
-						new Claim(ClaimTypes.Name,doktor.KimlikNo)
-					};
-
-					var useridenty = new ClaimsIdentity(claims, "DLogin");
-					ClaimsPrincipal principal = new ClaimsPrincipal(useridenty);
-					HttpContext.SignInAsync(principal);
-					return RedirectToAction("Index", "Doktor");
-
-				}
-				else
-				{
-					ViewBag.Uyari = "E-postanız ya da şifreniz yanlış";
-				}
-
-			
-			return View();
-
-		}
-		// GET: /Account/Login
+		
+	
 
 		// GET: Doktor
 		public async Task<IActionResult> Index()

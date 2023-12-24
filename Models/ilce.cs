@@ -18,5 +18,6 @@ namespace HastaneOtomasyonSistemi.Models
 		[ForeignKey("ilId")]
 		[ValidateNever]
 		public il? il { get; set; }
+		public List<Hastaneler>? hastaneler { get; set; }
 	}
 }
