@@ -43,7 +43,7 @@ namespace HastaneOtomasyonSistemi.Models
             {
                 DateTime selectedDate = (DateTime)value;
 
-                if (selectedDate > DateTime.Now)
+                if (selectedDate < DateTime.Now)
                 {
                     return ValidationResult.Success;
                 }

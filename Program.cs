@@ -4,7 +4,9 @@ using HastaneOtomasyonSistemi.Data;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<HastaneOtomasyonSistemiContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("HastaneOtomasyonSistemiContext") ?? throw new InvalidOperationException("Connection string 'HastaneOtomasyonSistemiContext' not found.")));
-
+builder.Services.AddSession(options => {
+	options.IdleTimeout = TimeSpan.FromMinutes(45);
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -22,7 +24,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

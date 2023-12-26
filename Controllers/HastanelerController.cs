@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HastaneOtomasyonSistemi.Data;
 using HastaneOtomasyonSistemi.Models;
+//using HastaneOtomasyonSistemi.Migrations;
 
 namespace HastaneOtomasyonSistemi.Controllers
 {
@@ -18,13 +19,18 @@ namespace HastaneOtomasyonSistemi.Controllers
         {
             _context = context;
         }
-
-        // GET: Hastaneler
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var hastaneOtomasyonSistemiContext = _context.Hastaneler.Include(h => h.il).Include(h => h.ilce);
-            return View(await hastaneOtomasyonSistemiContext.ToListAsync());
+            //var hastaneler = _context.Hastaneler.Include(h => h.il.ilceler).ToList();
+            var hastaneler = _context.Hastaneler.Include(h => h.il).Include(h => h.ilce).ToList();
+            return View(hastaneler);
         }
+        // GET: Hastaneler
+        //public async Task<IActionResult> Index()
+        //{
+        //    var hastaneOtomasyonSistemiContext = _context.Hastaneler.Include(h => h.il).Include(h => h.ilce).Include(h => h.poliklinikler);
+        //    return View(await hastaneOtomasyonSistemiContext.ToListAsync());
+        //}
 
         // GET: Hastaneler/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -50,14 +56,16 @@ namespace HastaneOtomasyonSistemi.Controllers
         //GET: Hastane/Create
         public ActionResult Create()
         {
-            ViewBag.Iller = _context.il.ToList();
+            ViewBag.Iller = new SelectList(_context.il, "Id", "ilAd");
+
             return View();
         }
         [HttpGet]
+     
         public JsonResult GetIlceler(int ilId)
         {
             var ilceList = _context.ilce.Where(x => x.ilId == ilId)
-                                           .Select(x => new { Value = x.Id, Text = x.ilceAd })
+                                           .Select(x => new { Value = x.Id, text = x.ilceAd })
                                            .ToList();
 
             if (ilceList.Any())
@@ -66,7 +74,7 @@ namespace HastaneOtomasyonSistemi.Controllers
             }
             else
             {
-                return Json(new List<object>());
+                return Json(new SelectList(ilceList, "Id", "ilceAd"));
             }
         }
 
@@ -84,7 +92,7 @@ namespace HastaneOtomasyonSistemi.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Iller = _context.il.ToList();
+            ViewBag.ilId = new SelectList(_context.il, "Id", "ilAd", hastaneler.ilId);
             return View(hastaneler);
         }
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HastaneOtomasyonSistemi.Migrations
 {
     [DbContext(typeof(HastaneOtomasyonSistemiContext))]
-    [Migration("20231223161320_HastaneRandevu")]
-    partial class HastaneRandevu
+    [Migration("20231226132511_hastane")]
+    partial class hastane
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -130,10 +130,15 @@ namespace HastaneOtomasyonSistemi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ilId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ilceId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ilId");
 
                     b.HasIndex("ilceId");
 
@@ -187,16 +192,26 @@ namespace HastaneOtomasyonSistemi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("HastanelerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("PoliklinikIsmi")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("hastaneId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ilId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ilceId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("HastanelerId");
+                    b.HasIndex("hastaneId");
+
+                    b.HasIndex("ilId");
+
+                    b.HasIndex("ilceId");
 
                     b.ToTable("poliklinik");
                 });
@@ -222,11 +237,31 @@ namespace HastaneOtomasyonSistemi.Migrations
                     b.Property<int>("hastaId")
                         .HasColumnType("int");
 
+                    b.Property<int>("hastaneId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ilId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ilceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("poliklinikId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("doktorId");
 
                     b.HasIndex("hastaId");
+
+                    b.HasIndex("hastaneId");
+
+                    b.HasIndex("ilId");
+
+                    b.HasIndex("ilceId");
+
+                    b.HasIndex("poliklinikId");
 
                     b.ToTable("Randevu");
                 });
@@ -234,7 +269,7 @@ namespace HastaneOtomasyonSistemi.Migrations
             modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Doktor", b =>
                 {
                     b.HasOne("HastaneOtomasyonSistemi.Models.poliklinik", "poliklinik")
-                        .WithMany()
+                        .WithMany("doktorlar")
                         .HasForeignKey("poliklinikId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -244,11 +279,19 @@ namespace HastaneOtomasyonSistemi.Migrations
 
             modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Hastaneler", b =>
                 {
+                    b.HasOne("HastaneOtomasyonSistemi.Models.il", "il")
+                        .WithMany()
+                        .HasForeignKey("ilId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("HastaneOtomasyonSistemi.Models.ilce", "ilce")
                         .WithMany("hastaneler")
                         .HasForeignKey("ilceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("il");
 
                     b.Navigation("ilce");
                 });
@@ -266,9 +309,29 @@ namespace HastaneOtomasyonSistemi.Migrations
 
             modelBuilder.Entity("HastaneOtomasyonSistemi.Models.poliklinik", b =>
                 {
-                    b.HasOne("HastaneOtomasyonSistemi.Models.Hastaneler", null)
+                    b.HasOne("HastaneOtomasyonSistemi.Models.Hastaneler", "hastaneler")
                         .WithMany("poliklinikler")
-                        .HasForeignKey("HastanelerId");
+                        .HasForeignKey("hastaneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HastaneOtomasyonSistemi.Models.il", "il")
+                        .WithMany()
+                        .HasForeignKey("ilId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HastaneOtomasyonSistemi.Models.ilce", "ilce")
+                        .WithMany()
+                        .HasForeignKey("ilceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("hastaneler");
+
+                    b.Navigation("il");
+
+                    b.Navigation("ilce");
                 });
 
             modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Randevu", b =>
@@ -279,15 +342,45 @@ namespace HastaneOtomasyonSistemi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HastaneOtomasyonSistemi.Models.Hasta", "hasta")
+                    b.HasOne("HastaneOtomasyonSistemi.Models.Hasta", null)
                         .WithMany("Randevular")
                         .HasForeignKey("hastaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("HastaneOtomasyonSistemi.Models.Hastaneler", "hastaneler")
+                        .WithMany()
+                        .HasForeignKey("hastaneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HastaneOtomasyonSistemi.Models.il", "il")
+                        .WithMany()
+                        .HasForeignKey("ilId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HastaneOtomasyonSistemi.Models.ilce", "ilce")
+                        .WithMany()
+                        .HasForeignKey("ilceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HastaneOtomasyonSistemi.Models.poliklinik", "poliklinik")
+                        .WithMany()
+                        .HasForeignKey("poliklinikId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("doktor");
 
-                    b.Navigation("hasta");
+                    b.Navigation("hastaneler");
+
+                    b.Navigation("il");
+
+                    b.Navigation("ilce");
+
+                    b.Navigation("poliklinik");
                 });
 
             modelBuilder.Entity("HastaneOtomasyonSistemi.Models.Hasta", b =>
@@ -308,6 +401,11 @@ namespace HastaneOtomasyonSistemi.Migrations
             modelBuilder.Entity("HastaneOtomasyonSistemi.Models.ilce", b =>
                 {
                     b.Navigation("hastaneler");
+                });
+
+            modelBuilder.Entity("HastaneOtomasyonSistemi.Models.poliklinik", b =>
+                {
+                    b.Navigation("doktorlar");
                 });
 #pragma warning restore 612, 618
         }

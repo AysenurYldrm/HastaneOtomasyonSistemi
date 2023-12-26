@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<HastaneOtomasyonSistemi.Models.poliklinik>
 
 @{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h1>Index</h1>
@@ -16,6 +16,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.PoliklinikIsmi)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.hastaneler)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -24,6 +27,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.PoliklinikIsmi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hastaneler.HastaneAd)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

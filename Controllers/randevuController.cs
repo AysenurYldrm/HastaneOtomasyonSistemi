@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HastaneOtomasyonSistemi.Data;
 using HastaneOtomasyonSistemi.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Session;
 
 namespace HastaneOtomasyonSistemi.Controllers
 {
@@ -22,7 +24,7 @@ namespace HastaneOtomasyonSistemi.Controllers
         // GET: Randevu
         public async Task<IActionResult> Index()
         {
-            var hastaneOtomasyonSistemiContext = _context.Randevu.Include(r => r.doktor).Include(r => r.hasta);
+            var hastaneOtomasyonSistemiContext = _context.Randevu.Include(r => r.doktor).Include(r => r.hastaneler).Include(r => r.il).Include(r => r.ilce).Include(r => r.poliklinik);
             return View(await hastaneOtomasyonSistemiContext.ToListAsync());
         }
 
@@ -36,7 +38,10 @@ namespace HastaneOtomasyonSistemi.Controllers
 
             var randevu = await _context.Randevu
                 .Include(r => r.doktor)
-                .Include(r => r.hasta)
+                .Include(r => r.hastaneler)
+                .Include(r => r.il)
+                .Include(r => r.ilce)
+                .Include(r => r.poliklinik)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (randevu == null)
             {
@@ -46,29 +51,110 @@ namespace HastaneOtomasyonSistemi.Controllers
             return View(randevu);
         }
 
+
         // GET: Randevu/Create
+        [HttpGet]
         public IActionResult Create()
         {
-            ViewData["doktorId"] = new SelectList(_context.Doktor, "Id", "Ad");
-            ViewData["hastaId"] = new SelectList(_context.Hasta, "Id", "Ad");
+            ViewBag.Iller = new SelectList(_context.il, "Id", "ilAd");
+            ViewBag.Ilceler = new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "ilceAd");
+            ViewBag.Hastaneler = new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "HastaneAd");
+            ViewBag.Poliklinikler = new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "PoliklinikIsmi");
+            ViewBag.Doktorlar = new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Ad");
             return View();
         }
+        [HttpGet]
+        public JsonResult GetIlceler(int ilId)
+        {
+            var ilceList = _context.ilce.Where(x => x.ilId == ilId)
+                                           .Select(x => new { Value = x.Id, text = x.ilceAd })
+                                           .ToList();
+            ViewBag.Ilceler = new SelectList(ilceList, "Value", "text");
+            if (ilceList.Any())
+            {
+                return Json(ilceList);
+            }
+            else
+            {
+                return Json(new SelectList(ilceList, "Id", "ilceAd"));
+            }
+        }
+
+        public JsonResult GetHastane(int ilceId)
+        {
+            var hastaneList = _context.Hastaneler.Where(x => x.ilceId == ilceId)
+                                           .Select(x => new { Value = x.Id, text = x.HastaneAd })
+                                           .ToList();
+            ViewBag.Hastaneler = new SelectList(hastaneList, "Value", "text");
+            if (hastaneList.Any())
+            {
+                return Json(hastaneList);
+            }
+            else
+            {
+                return Json(new SelectList(hastaneList, "Id", "HastaneAd"));
+            }
+        }
+
+        public JsonResult GetPoliklinik(int hastaneId)
+        {
+            var poliklinikList = _context.poliklinik.Where(x => x.hastaneId == hastaneId)
+                                           .Select(x => new { Value = x.Id, text = x.PoliklinikIsmi })
+                                           .ToList();
+            ViewBag.Poliklinikler = new SelectList(poliklinikList, "Value", "text");
+            if (poliklinikList.Any())
+            {
+                return Json(poliklinikList);
+            }
+            else
+            {
+                return Json(new SelectList(poliklinikList, "Id", "PoliklinikIsmi"));
+            }
+        }
+        public JsonResult GetDoktor(int poliklinikId)
+        {
+            var doktorList = _context.Doktor.Where(x => x.poliklinikId == poliklinikId)
+                                           .Select(x => new { Value = x.Id, text = x.Ad })
+                                           .ToList();
+            ViewBag.Doktorlar = new SelectList(doktorList, "Value", "text");
+            if (doktorList.Any())
+            {
+                return Json(doktorList);
+            }
+            else
+            {
+                return Json(new SelectList(doktorList, "Id", "Ad"));
+            }
+        }
+
 
         // POST: Randevu/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,hastaId,RandevuTarihi,RandevuDurumu,doktorId")] Randevu randevu)
+        public async Task<IActionResult> Create([Bind("Id,hastaId,ilId,ilceId,hastaneId,RandevuTarihi,RandevuDurumu,doktorId,poliklinikId")] Randevu randevu)
         {
+            int? userId = HttpContext.Session.GetInt32("UserHasta");
+
+            if (userId.HasValue)
+            {
+                // Kullanıcı oturumu var, hastaId'yi userId'den al
+                randevu.hastaId = userId.Value;
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(randevu);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["doktorId"] = new SelectList(_context.Doktor, "Id", "Ad", randevu.doktorId);
-            ViewData["hastaId"] = new SelectList(_context.Hasta, "Id", "Ad", randevu.hastaId);
+          
+            ViewBag.Iller = new SelectList(_context.il, "Id", "ilAd",randevu.ilId);
+            ViewBag.Ilceler = new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "ilceAd");
+            ViewBag.Hastaneler = new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "HastaneAd");
+            ViewBag.Poliklinikler = new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "PoliklinikIsmi");
+            ViewBag.Doktorlar = new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Ad");
             return View(randevu);
         }
 
@@ -85,8 +171,7 @@ namespace HastaneOtomasyonSistemi.Controllers
             {
                 return NotFound();
             }
-            ViewData["doktorId"] = new SelectList(_context.Doktor, "Id", "Ad", randevu.doktorId);
-            ViewData["hastaId"] = new SelectList(_context.Hasta, "Id", "Ad", randevu.hastaId);
+            ViewBag.Iller = new SelectList(_context.il, "Id", "ilAd",randevu.ilId);
             return View(randevu);
         }
 
@@ -95,7 +180,7 @@ namespace HastaneOtomasyonSistemi.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,hastaId,RandevuTarihi,RandevuDurumu,doktorId")] Randevu randevu)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,hastaId,ilId,ilceId,hastaneId,RandevuTarihi,RandevuDurumu,doktorId,poliklinikId")] Randevu randevu)
         {
             if (id != randevu.Id)
             {
@@ -124,6 +209,10 @@ namespace HastaneOtomasyonSistemi.Controllers
             }
             ViewData["doktorId"] = new SelectList(_context.Doktor, "Id", "Ad", randevu.doktorId);
             ViewData["hastaId"] = new SelectList(_context.Hasta, "Id", "Ad", randevu.hastaId);
+            ViewData["hastaneId"] = new SelectList(_context.Hastaneler, "Id", "Id", randevu.hastaneId);
+            ViewData["ilId"] = new SelectList(_context.il, "Id", "ilAd", randevu.ilId);
+            ViewData["ilceId"] = new SelectList(_context.ilce, "Id", "Id", randevu.ilceId);
+            ViewData["poliklinikId"] = new SelectList(_context.poliklinik, "Id", "PoliklinikIsmi", randevu.poliklinikId);
             return View(randevu);
         }
 
@@ -137,7 +226,10 @@ namespace HastaneOtomasyonSistemi.Controllers
 
             var randevu = await _context.Randevu
                 .Include(r => r.doktor)
-                .Include(r => r.hasta)
+                .Include(r => r.hastaneler)
+                .Include(r => r.il)
+                .Include(r => r.ilce)
+                .Include(r => r.poliklinik)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (randevu == null)
             {

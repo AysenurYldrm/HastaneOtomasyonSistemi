@@ -15,12 +15,29 @@ namespace HastaneOtomasyonSistemi.Models
     {
         [Key]
         public int Id { get; set; }
-        [DisplayName("hasta")]
-       
+        [Required]
+        [DisplayName("Hasta")]
         public int hastaId { get; set; }
-        [ForeignKey("hastaId")]
+
+        [DisplayName("İl")]
+        public int ilId { get; set; }
+        [ForeignKey("ilId")]
         [ValidateNever]
-        public Hasta? hasta { get; set; }
+        public il? il { get; set; }
+
+        [DisplayName("İlce")]
+        public int ilceId { get; set; }
+        [ForeignKey("ilceId")]
+        [ValidateNever]
+        public ilce? ilce { get; set; }
+
+        [DisplayName("Hastane")]
+
+        public int hastaneId { get; set; }
+
+        [ForeignKey("hastaneId")]
+        [ValidateNever]
+        public Hastaneler? hastaneler { get; set; }
 
         [Required]
         [time(480, 1020)]
@@ -30,13 +47,20 @@ namespace HastaneOtomasyonSistemi.Models
 		[DisplayName("Randevu Durumu")]
 		public string RandevuDurumu { get; set; }
 
-
-		[DisplayName("doktor")]
+		[DisplayName("Doktor")]
         public int doktorId { get; set; }
 
         [ForeignKey("doktorId")]
         [ValidateNever]
         public Doktor? doktor { get; set; }
+        //public List<poliklinik>? poliklinikler { get; set; }
+
+        [DisplayName("Poliklinik")]
+        public int poliklinikId { get; set; }
+
+        [ForeignKey("poliklinikId")]
+        [ValidateNever]
+        public poliklinik? poliklinik { get; set; }
 
     }
 }

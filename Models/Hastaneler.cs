@@ -11,13 +11,13 @@ namespace HastaneOtomasyonSistemi.Models
         public int Id { get; set; }
         public string HastaneAd { get; set; }
 
-        [DisplayName("il")]
+        [DisplayName("İl")]
         public int ilId { get; set; }
         [ForeignKey("ilId")]
         [ValidateNever]
         public il? il { get; set; }
 
-        [DisplayName("ilce")]
+        [DisplayName("İlce")]
         public int ilceId { get; set; }
         [ForeignKey("ilceId")]
         [ValidateNever]

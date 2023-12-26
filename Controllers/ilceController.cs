@@ -19,12 +19,13 @@ namespace HastaneOtomasyonSistemi.Controllers
             _context = context;
         }
 
-        // GET: ilce
+        //GET: ilce
         public async Task<IActionResult> Index()
         {
-            var hastaneOtomasyonSistemiContext = _context.ilce.Include(i => i.il);
-            return View(await hastaneOtomasyonSistemiContext.ToListAsync());
+            var ilceler = _context.ilce.Include(i => i.il);
+            return View(await ilceler.ToListAsync());
         }
+       
 
         // GET: ilce/Details/5
         public async Task<IActionResult> Details(int? id)

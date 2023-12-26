@@ -22,9 +22,8 @@ namespace HastaneOtomasyonSistemi.Controllers
         // GET: poliklinik
         public async Task<IActionResult> Index()
         {
-              return _context.poliklinik != null ? 
-                          View(await _context.poliklinik.ToListAsync()) :
-                          Problem("Entity set 'HastaneOtomasyonSistemiContext.poliklinik'  is null.");
+            var hastaneOtomasyonSistemiContext = _context.poliklinik.Include(p => p.hastaneler);
+            return View(await hastaneOtomasyonSistemiContext.ToListAsync());
         }
 
         // GET: poliklinik/Details/5
@@ -36,6 +35,9 @@ namespace HastaneOtomasyonSistemi.Controllers
             }
 
             var poliklinik = await _context.poliklinik
+                .Include(p => p.hastaneler)
+                .Include(p => p.il)
+                .Include(p => p.ilce)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (poliklinik == null)
             {
@@ -45,10 +47,49 @@ namespace HastaneOtomasyonSistemi.Controllers
             return View(poliklinik);
         }
 
+
         // GET: poliklinik/Create
-        public IActionResult Create()
+        public ActionResult Create()
         {
+            ViewBag.Iller = new SelectList(_context.il, "Id", "ilAd");
+            ViewBag.Ilceler = new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "ilceAd");
+            ViewBag.Hastaneler = new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "HastaneAd");
             return View();
+        }
+        [HttpGet]
+        public JsonResult GetIlceler(int ilId)
+        {
+            var ilceList = _context.ilce.Where(x => x.ilId == ilId)
+                                           .Select(x => new { Value = x.Id, text = x.ilceAd })
+                                           .ToList();
+
+            ViewBag.Ilceler = new SelectList(ilceList, "Value", "text");
+
+            if (ilceList.Any())
+            {
+                return Json(ilceList);
+            }
+            else
+            {
+                return Json(new SelectList(ilceList, "Id", "ilceAd"));
+            }
+        }
+
+        public JsonResult GetHastane(int ilceId)
+        {
+            var hastaneList = _context.Hastaneler.Where(x => x.ilceId == ilceId)
+                                           .Select(x => new { Value = x.Id, text = x.HastaneAd })
+                                           .ToList();
+            ViewBag.Hastaneler = new SelectList(hastaneList, "Value", "text");
+
+            if (hastaneList.Any())
+            {
+                return Json(hastaneList);
+            }
+            else
+            {
+                return Json(new SelectList(hastaneList, "Id", "HastaneAd"));
+            }
         }
 
         // POST: poliklinik/Create
@@ -56,14 +97,17 @@ namespace HastaneOtomasyonSistemi.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PoliklinikIsmi")] poliklinik poliklinik)
+        public async Task<ActionResult> Create([Bind("Id,PoliklinikIsmi,ilId,ilceId,hastaneId")] poliklinik poliklinik)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(poliklinik);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Iller = new SelectList(_context.il, "Id", "ilAd",poliklinik.ilId);
+            ViewBag.Ilceler = new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "ilceAd");
+            ViewBag.Hastaneler = new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "HastaneAd");
             return View(poliklinik);
         }
 
@@ -80,6 +124,9 @@ namespace HastaneOtomasyonSistemi.Controllers
             {
                 return NotFound();
             }
+            ViewData["hastaneId"] = new SelectList(_context.Hastaneler, "Id", "Id", poliklinik.hastaneId);
+            ViewData["ilId"] = new SelectList(_context.il, "Id", "ilAd", poliklinik.ilId);
+            ViewData["ilceId"] = new SelectList(_context.ilce, "Id", "Id", poliklinik.ilceId);
             return View(poliklinik);
         }
 
@@ -88,7 +135,7 @@ namespace HastaneOtomasyonSistemi.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,PoliklinikIsmi")] poliklinik poliklinik)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,PoliklinikIsmi,ilId,ilceId,hastaneId")] poliklinik poliklinik)
         {
             if (id != poliklinik.Id)
             {
@@ -115,6 +162,9 @@ namespace HastaneOtomasyonSistemi.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["hastaneId"] = new SelectList(_context.Hastaneler, "Id", "Id", poliklinik.hastaneId);
+            ViewData["ilId"] = new SelectList(_context.il, "Id", "ilAd", poliklinik.ilId);
+            ViewData["ilceId"] = new SelectList(_context.ilce, "Id", "Id", poliklinik.ilceId);
             return View(poliklinik);
         }
 
@@ -127,6 +177,9 @@ namespace HastaneOtomasyonSistemi.Controllers
             }
 
             var poliklinik = await _context.poliklinik
+                .Include(p => p.hastaneler)
+                .Include(p => p.il)
+                .Include(p => p.ilce)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (poliklinik == null)
             {

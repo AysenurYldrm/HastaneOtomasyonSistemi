@@ -54,6 +54,44 @@ namespace HastaneOtomasyonSistemi.Controllers
             return View(doktor);
         }
 
+        // GET: Doktor/DetailsDoktor/5
+        public async Task<IActionResult> DetailsDoktor(int? id)
+        {
+            // Kullanıcının doktor kimliğini al
+            int? userDoktorId = HttpContext.Session.GetInt32("UserDoktor");
+
+            // Eğer kullanıcı kimliği yoksa veya doktor koleksiyonu boşsa NotFound döndür
+            if (userDoktorId == null || !_context.Doktor.Any())
+            {
+                return NotFound();
+            }
+
+            //// Eğer detay gösterilecek doktor kimliği belirtilmemişse NotFound döndür
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
+
+            // Eğer userDoktorId değeri varsa ve id ile uyuşmuyorsa, id'yi userDoktorId ile güncelle
+            if (userDoktorId != null && userDoktorId != id)
+            {
+                id = userDoktorId;
+            }
+
+            // Doktoru bul ve eğer yoksa NotFound döndür
+            var doktor = await _context.Doktor
+                .Include(d => d.poliklinik)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (doktor == null)
+            {
+                return NotFound();
+            }
+
+            return View(doktor);
+        }
+
+
         // GET: Doktor/Create
         public IActionResult Create()
         {

@@ -10,6 +10,8 @@ using System.Security.Claims;
 using HastaneOtomasyonSistemi.Data;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
+using Microsoft.AspNetCore.Session;
+
 namespace HastaneOtomasyonSistemi.Controllers
 {
     public class HomeController : Controller
@@ -57,11 +59,12 @@ namespace HastaneOtomasyonSistemi.Controllers
 					var claims = new List<Claim>
 					{
 						new Claim(ClaimTypes.Name,hasta.KimlikNo)
-					};
+                    };
+					HttpContext.Session.SetInt32("UserHasta", loginHasta.Id);
 
-					var useridenty = new ClaimsIdentity(claims, "Login");
+                    var useridenty = new ClaimsIdentity(claims, "Login");
 					ClaimsPrincipal principal = new ClaimsPrincipal(useridenty);
-					HttpContext.SignInAsync(principal);
+                    HttpContext.SignInAsync(principal);
 					return RedirectToAction("Index", "Hasta");
 				}
 				else
@@ -77,11 +80,12 @@ namespace HastaneOtomasyonSistemi.Controllers
 					{
 						new Claim(ClaimTypes.Name,doktor.KimlikNo)
 					};
+                    HttpContext.Session.SetInt32("UserDoktor", loginDoktor.Id);
 
-					var useridenty = new ClaimsIdentity(claims, "Login");
+                    var useridenty = new ClaimsIdentity(claims, "Login");
 					ClaimsPrincipal principal = new ClaimsPrincipal(useridenty);
 					HttpContext.SignInAsync(principal);
-					return RedirectToAction("Index", "Doktor");
+					return RedirectToAction("DetailsDoktor", "Doktor");
 				}
 				else
 				{

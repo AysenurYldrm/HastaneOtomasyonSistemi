@@ -1,8 +1,8 @@
 ﻿@model HastaneOtomasyonSistemi.Models.Randevu
 
 @{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h1>Create</h1>
@@ -14,8 +14,24 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="hastaId" class="control-label"></label>
-                <select asp-for="hastaId" class ="form-control" asp-items="ViewBag.hastaId"></select>
+                <label asp-for="ilId" class="control-label"></label>
+                <select asp-for="ilId" asp-items="ViewBag.Iller" class="form-control" id="ilSelect"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ilceId" class="control-label"></label>
+                <select asp-for="ilceId" asp-items="ViewBag.Ilceler" class="form-control" id="ilceSelect"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="hastaneId" class="control-label"></label>
+                <select asp-for="hastaneId" asp-items="ViewBag.Hastaneler" class="form-control" id="HastaneSelect"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="poliklinikId" class="control-label"></label>
+                <select asp-for="poliklinikId" asp-items="ViewBag.Poliklinikler" class="form-control" id="PoliklinikSelect"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="doktorId" class="control-label"></label>
+                <select asp-for="doktorId" asp-items="@(new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Ad"))" class="form-control" id="DoktorSelect"></select>
             </div>
             <div class="form-group">
                 <label asp-for="RandevuTarihi" class="control-label"></label>
@@ -28,10 +44,6 @@
                 <span asp-validation-for="RandevuDurumu" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="doktorId" class="control-label"></label>
-                <select asp-for="doktorId" class ="form-control" asp-items="ViewBag.doktorId"></select>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -42,6 +54,190 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+@* @section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#ilSelect").change(function () {
+                var ilId = $(this).val();
+                $.ajax({
+                    url: '/Randevu/GetIlceler',
+                    type: 'GET',
+                    data: { ilId: ilId },
+                    success: function (data) {
+                        var ilceSelect = $("#ilceSelect");
+                        ilceSelect.empty();
+                        $.each(data, function (i, item) {
+                            ilceSelect.append($('<option>').text(item.text).attr('value', item.value));
+                        });
+                    }
+                });
+            });
+        });
+
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#ilceSelect").change(function () {
+                var ilceId = $(this).val();
+                $.ajax({
+                    url: '/Randevu/GetHastane',
+                    type: 'GET',
+                    data: { ilceId: ilceId },
+                    success: function (data) {
+                        var HastaneSelect = $("#HastaneSelect");
+                        HastaneSelect.empty();
+                        $.each(data, function (i, item) {
+                            HastaneSelect.append($('<option>').text(item.text).attr('value', item.value));
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#HastaneSelect").change(function () {
+                var hastaneId = $(this).val();
+                $.ajax({
+                    url: '/Randevu/GetPoliklinik',
+                    type: 'GET',
+                    data: { hastaneId: hastaneId },
+                    success: function (data) {
+                        var PoliklinikSelect = $("#PoliklinikSelect");
+                        PoliklinikSelect.empty();
+                        $.each(data, function (i, item) {
+                            PoliklinikSelect.append($('<option>').text(item.text).attr('value', item.value));
+                        });
+                    }
+                });
+            });
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#PoliklinikSelect").change(function () {
+                var poliklinikId = $(this).val();
+                $.ajax({
+                    url: '/Randevu/GetDoktor',
+                    type: 'GET',
+                    data: { poliklinikId: poliklinikId },
+                    success: function (data) {
+                        var DoktorSelect = $("#DoktorSelect");
+                        DoktorSelect.empty();
+                        $.each(data, function (i, item) {
+                            DoktorSelect.append($('<option>').text(item.text).attr('value', item.value));
+                        });
+                    }
+                });
+            });
+        });
+
+    </script>
+} *@
+ @section Scripts {
+<script>
+    $(document).ready(function () {
+            // İl seçeneği için
+            var ilSelect = $("#ilSelect");
+            $.ajax({
+                url: '/Poliklinik/GetIller',
+                type: 'GET',
+                success: function (data) {
+                    ilSelect.empty();
+                    ilSelect.append($('<option>').text("Select an option").attr('value', ''));
+                    $.each(data, function (i, item) {
+                        ilSelect.append($('<option>').text(item.text).attr('value', item.value));
+                    });
+                }
+            });
+
+        // İlçe seçeneği için
+        var ilceSelect = $("#ilceSelect");
+        ilceSelect.empty();
+        ilceSelect.append($('<option>').text("Bir İlçe Seçiniz..").attr('value', ''));
+
+        // Hastane seçeneği için
+        var HastaneSelect = $("#HastaneSelect");
+        HastaneSelect.empty();
+        HastaneSelect.append($('<option>').text("Bir Hastane Seçiniz..").attr('value', ''));
+
+        // Poliklinik seçeneği için
+        var PoliklinikSelect = $("#PoliklinikSelect");
+        PoliklinikSelect.empty();
+        PoliklinikSelect.append($('<option>').text("Bir Poliklinik Seçiniz..").attr('value', ''));
+
+        // Doktor seçeneği için
+        var DoktorSelect = $("#DoktorSelect");
+        DoktorSelect.empty();
+        DoktorSelect.append($('<option>').text("Bir Doktor Seçiniz..").attr('value', ''));
+
+        ilSelect.change(function () {
+            var ilId = $(this).val();
+            $.ajax({
+                url: '/Randevu/GetIlceler',
+                type: 'GET',
+                data: { ilId: ilId },
+                success: function (data) {
+                    ilceSelect.empty();
+                    ilceSelect.append($('<option>').text("Bir İlçe Seçiniz..").attr('value', ''));
+                    $.each(data, function (i, item) {
+                        ilceSelect.append($('<option>').text(item.text).attr('value', item.value));
+                    });
+                }
+            });
+        });
+
+        ilceSelect.change(function () {
+            var ilceId = $(this).val();
+            $.ajax({
+                url: '/Randevu/GetHastane',
+                type: 'GET',
+                data: { ilceId: ilceId },
+                success: function (data) {
+                    HastaneSelect.empty();
+                    HastaneSelect.append($('<option>').text("Bir Hastane Seçiniz..").attr('value', ''));
+                    $.each(data, function (i, item) {
+                        HastaneSelect.append($('<option>').text(item.text).attr('value', item.value));
+                    });
+                }
+            });
+        });
+
+        HastaneSelect.change(function () {
+            var hastaneId = $(this).val();
+            $.ajax({
+                url: '/Randevu/GetPoliklinik',
+                type: 'GET',
+                data: { hastaneId: hastaneId },
+                success: function (data) {
+                    PoliklinikSelect.empty();
+                    PoliklinikSelect.append($('<option>').text("Bir Poliklinik Seçiniz..").attr('value', ''));
+                    $.each(data, function (i, item) {
+                        PoliklinikSelect.append($('<option>').text(item.text).attr('value', item.value));
+                    });
+                }
+            });
+        });
+
+        PoliklinikSelect.change(function () {
+            var poliklinikId = $(this).val();
+            $.ajax({
+                url: '/Randevu/GetDoktor',
+                type: 'GET',
+                data: { poliklinikId: poliklinikId },
+                success: function (data) {
+                    DoktorSelect.empty();
+                    DoktorSelect.append($('<option>').text("Bir Doktor Seçiniz..").attr('value', ''));
+                    $.each(data, function (i, item) {
+                        DoktorSelect.append($('<option>').text(item.text).attr('value', item.value));
+                    });
+                }
+            });
+        });
+    });
+</script>
+
 }

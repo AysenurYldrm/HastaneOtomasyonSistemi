@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ilId" class="control-label"></label>
-                <select asp-for="ilId" asp-items="@(new SelectList(ViewBag.Iller, "Id", "ilAd"))" class="form-control" id="ilSelect"></select>
+                <select asp-for="ilId" asp-items="ViewBag.Iller" class="form-control" id="ilSelect"></select>
             </div>
             <div class="form-group">
                 <label asp-for="ilceId" class="control-label"></label>
@@ -38,9 +38,6 @@
 </div>
 
 @section Scripts {
-   @*  @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    } *@
     <script>
         $(document).ready(function () {
             $("#ilSelect").change(function () {
@@ -59,5 +56,6 @@
                 });
             });
         });
+
     </script>
 }

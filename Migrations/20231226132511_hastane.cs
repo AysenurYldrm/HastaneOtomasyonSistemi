@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HastaneOtomasyonSistemi.Migrations
 {
-    public partial class HastaneRandevu : Migration
+    public partial class hastane : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -80,11 +80,18 @@ namespace HastaneOtomasyonSistemi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     HastaneAd = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ilId = table.Column<int>(type: "int", nullable: false),
                     ilceId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Hastaneler", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Hastaneler_il_ilId",
+                        column: x => x.ilId,
+                        principalTable: "il",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Hastaneler_ilce_ilceId",
                         column: x => x.ilceId,
@@ -100,16 +107,31 @@ namespace HastaneOtomasyonSistemi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PoliklinikIsmi = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    HastanelerId = table.Column<int>(type: "int", nullable: true)
+                    ilId = table.Column<int>(type: "int", nullable: false),
+                    ilceId = table.Column<int>(type: "int", nullable: false),
+                    hastaneId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_poliklinik", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_poliklinik_Hastaneler_HastanelerId",
-                        column: x => x.HastanelerId,
+                        name: "FK_poliklinik_Hastaneler_hastaneId",
+                        column: x => x.hastaneId,
                         principalTable: "Hastaneler",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_poliklinik_il_ilId",
+                        column: x => x.ilId,
+                        principalTable: "il",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_poliklinik_ilce_ilceId",
+                        column: x => x.ilceId,
+                        principalTable: "ilce",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -142,9 +164,13 @@ namespace HastaneOtomasyonSistemi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     hastaId = table.Column<int>(type: "int", nullable: false),
+                    ilId = table.Column<int>(type: "int", nullable: false),
+                    ilceId = table.Column<int>(type: "int", nullable: false),
+                    hastaneId = table.Column<int>(type: "int", nullable: false),
                     RandevuTarihi = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RandevuDurumu = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    doktorId = table.Column<int>(type: "int", nullable: false)
+                    doktorId = table.Column<int>(type: "int", nullable: false),
+                    poliklinikId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -161,6 +187,30 @@ namespace HastaneOtomasyonSistemi.Migrations
                         principalTable: "Hasta",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Randevu_Hastaneler_hastaneId",
+                        column: x => x.hastaneId,
+                        principalTable: "Hastaneler",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_Randevu_il_ilId",
+                        column: x => x.ilId,
+                        principalTable: "il",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_Randevu_ilce_ilceId",
+                        column: x => x.ilceId,
+                        principalTable: "ilce",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_Randevu_poliklinik_poliklinikId",
+                        column: x => x.poliklinikId,
+                        principalTable: "poliklinik",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
@@ -174,14 +224,29 @@ namespace HastaneOtomasyonSistemi.Migrations
                 column: "ilceId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Hastaneler_ilId",
+                table: "Hastaneler",
+                column: "ilId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ilce_ilId",
                 table: "ilce",
                 column: "ilId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_poliklinik_HastanelerId",
+                name: "IX_poliklinik_hastaneId",
                 table: "poliklinik",
-                column: "HastanelerId");
+                column: "hastaneId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_poliklinik_ilceId",
+                table: "poliklinik",
+                column: "ilceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_poliklinik_ilId",
+                table: "poliklinik",
+                column: "ilId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Randevu_doktorId",
@@ -192,6 +257,26 @@ namespace HastaneOtomasyonSistemi.Migrations
                 name: "IX_Randevu_hastaId",
                 table: "Randevu",
                 column: "hastaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Randevu_hastaneId",
+                table: "Randevu",
+                column: "hastaneId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Randevu_ilceId",
+                table: "Randevu",
+                column: "ilceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Randevu_ilId",
+                table: "Randevu",
+                column: "ilId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Randevu_poliklinikId",
+                table: "Randevu",
+                column: "poliklinikId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

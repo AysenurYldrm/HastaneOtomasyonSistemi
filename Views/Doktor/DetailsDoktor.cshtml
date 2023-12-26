@@ -1,0 +1,48 @@
+﻿@model HastaneOtomasyonSistemi.Models.Doktor
+
+@{
+    ViewData["Title"] = "DetailsDoktor";
+    Layout = "~/Views/Shared/_DoktorLayout.cshtml";
+}
+
+<h1>DetailsDoktor</h1>
+
+<div>
+    <h4>Doktor</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ad)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ad)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.soyAd)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.soyAd)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.KimlikNo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.KimlikNo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Sifre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Sifre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.poliklinik)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.poliklinik.PoliklinikIsmi)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+</div>

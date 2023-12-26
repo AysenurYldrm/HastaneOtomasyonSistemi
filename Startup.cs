@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using HastaneOtomasyonSistemi.Models; // Kullanıcı modelinizi içeren namespace
 using HastaneOtomasyonSistemi.Data;
+using Microsoft.AspNetCore.Session;
 
 namespace HastaneOtomasyonSistemi
 {
@@ -22,6 +23,10 @@ namespace HastaneOtomasyonSistemi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+
+            services.AddSession();
+
             services.AddDbContext<HastaneOtomasyonSistemiContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -50,13 +55,16 @@ namespace HastaneOtomasyonSistemi
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+            app.UseSession();
+            app.UseRouting();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseRouting();
 
             app.UseAuthentication(); // Yetkilendirme kullanımı ekleyin
             app.UseAuthorization();
+
+           
 
             app.UseEndpoints(endpoints =>
             {

@@ -12,7 +12,7 @@ namespace HastaneOtomasyonSistemi.Models
 		
 		public string ilceAd { get; set; } //= string.Empty;
 
-		[DisplayName("il")]
+		[DisplayName("İl")]
 		public int ilId { get; set; }
 
 		[ForeignKey("ilId")]

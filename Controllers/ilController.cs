@@ -19,14 +19,13 @@ namespace HastaneOtomasyonSistemi.Controllers
             _context = context;
         }
 
-        // GET: il
+        //GET: il
         public async Task<IActionResult> Index()
         {
-              return _context.il != null ? 
-                          View(await _context.il.ToListAsync()) :
-                          Problem("Entity set 'HastaneOtomasyonSistemiContext.il'  is null.");
+            return _context.il != null ?
+                        View(await _context.il.ToListAsync()) :
+                        Problem("Entity set 'HastaneOtomasyonSistemiContext.il'  is null.");
         }
-
         // GET: il/Details/5
         public async Task<IActionResult> Details(int? id)
         {
