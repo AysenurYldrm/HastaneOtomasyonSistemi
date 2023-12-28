@@ -1,0 +1,64 @@
+﻿@model IEnumerable<HastaneOtomasyonSistemi.Models.Randevu>
+
+@{
+    ViewData["Title"] = "DoktorRandevu";
+    Layout = "~/Views/Shared/_DoktorLayout.cshtml";
+}
+
+<h1>Randevularınız</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model=> model.hastaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.il)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ilce)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.hastaneler)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RandevuTarihi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RandevuDurumu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.poliklinik)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.hastaId)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.il.ilAd)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.ilce.ilceAd)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.hastaneler.HastaneAd)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.RandevuTarihi)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.RandevuDurumu)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.poliklinik.PoliklinikIsmi)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

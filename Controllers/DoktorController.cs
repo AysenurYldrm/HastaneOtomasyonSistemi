@@ -169,6 +169,59 @@ namespace HastaneOtomasyonSistemi.Controllers
             return View(doktor);
         }
 
+        // GET: Doktor/Edit/5
+        public async Task<IActionResult> EditAdmin(int? id)
+        {
+            if (id == null || _context.Doktor == null)
+            {
+                return NotFound();
+            }
+
+            var doktor = await _context.Doktor.FindAsync(id);
+            if (doktor == null)
+            {
+                return NotFound();
+            }
+            ViewData["poliklinikId"] = new SelectList(_context.poliklinik, "Id", "PoliklinikIsmi", doktor.poliklinikId);
+            return View(doktor);
+        }
+
+        // POST: Doktor/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditAdmin(int id, [Bind("Id,Ad,soyAd,KimlikNo,Sifre,poliklinikId")] Doktor doktor)
+        {
+            if (id != doktor.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(doktor);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!DoktorExists(doktor.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["poliklinikId"] = new SelectList(_context.poliklinik, "Id", "PoliklinikIsmi", doktor.poliklinikId);
+            return View(doktor);
+        }
+
         // GET: Doktor/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

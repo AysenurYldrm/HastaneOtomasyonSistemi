@@ -27,9 +27,42 @@ namespace HastaneOtomasyonSistemi.Controllers
             var hastaneOtomasyonSistemiContext = _context.Randevu.Include(r => r.doktor).Include(r => r.hastaneler).Include(r => r.il).Include(r => r.ilce).Include(r => r.poliklinik);
             return View(await hastaneOtomasyonSistemiContext.ToListAsync());
         }
-
+        public async Task<IActionResult> DoktorRandevu()
+        {
+            var currentDoctor = HttpContext.Session.GetInt32("UserDoktor");
+            var hastaneOtomasyonSistemiContext = _context.Randevu.Include(r => r.doktor).Include(r => r.hastaneler).Include(r => r.il).Include(r => r.ilce).Include(r => r.poliklinik).Where(r => r.doktor.Id == currentDoctor);
+            return View(await hastaneOtomasyonSistemiContext.ToListAsync());
+        }
+        public async Task<IActionResult> HastaRandevu()
+        {
+            var currentHasta = HttpContext.Session.GetInt32("UserHasta");
+            var hastaneOtomasyonSistemiContext = _context.Randevu.Include(r => r.doktor).Include(r => r.hastaneler).Include(r => r.il).Include(r => r.ilce).Include(r => r.poliklinik).Where(r => r.hastaId == currentHasta);
+            return View(await hastaneOtomasyonSistemiContext.ToListAsync());
+        }
         // GET: Randevu/Details/5
         public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || _context.Randevu == null)
+            {
+                return NotFound();
+            }
+
+            var randevu = await _context.Randevu
+                .Include(r => r.doktor)
+                .Include(r => r.hastaneler)
+                .Include(r => r.il)
+                .Include(r => r.ilce)
+                .Include(r => r.poliklinik)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (randevu == null)
+            {
+                return NotFound();
+            }
+
+            return View(randevu);
+        }
+        // GET: Randevu/Details/5
+        public async Task<IActionResult> RandevuDetails(int? id)
         {
             if (id == null || _context.Randevu == null)
             {
@@ -147,7 +180,7 @@ namespace HastaneOtomasyonSistemi.Controllers
             {
                 _context.Add(randevu);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(HastaRandevu));
             }
           
             ViewBag.Iller = new SelectList(_context.il, "Id", "ilAd",randevu.ilId);
@@ -215,7 +248,63 @@ namespace HastaneOtomasyonSistemi.Controllers
             ViewData["poliklinikId"] = new SelectList(_context.poliklinik, "Id", "PoliklinikIsmi", randevu.poliklinikId);
             return View(randevu);
         }
+        // GET: Randevu/Edit/5
+        public async Task<IActionResult> EditAdmin(int? id)
+        {
+            if (id == null || _context.Randevu == null)
+            {
+                return NotFound();
+            }
 
+            var randevu = await _context.Randevu.FindAsync(id);
+            if (randevu == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Iller = new SelectList(_context.il, "Id", "ilAd", randevu.ilId);
+            return View(randevu);
+        }
+
+        // POST: Randevu/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditAdmin(int id, [Bind("Id,hastaId,ilId,ilceId,hastaneId,RandevuTarihi,RandevuDurumu,doktorId,poliklinikId")] Randevu randevu)
+        {
+            if (id != randevu.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(randevu);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!RandevuExists(randevu.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["doktorId"] = new SelectList(_context.Doktor, "Id", "Ad", randevu.doktorId);
+            ViewData["hastaId"] = new SelectList(_context.Hasta, "Id", "Ad", randevu.hastaId);
+            ViewData["hastaneId"] = new SelectList(_context.Hastaneler, "Id", "Id", randevu.hastaneId);
+            ViewData["ilId"] = new SelectList(_context.il, "Id", "ilAd", randevu.ilId);
+            ViewData["ilceId"] = new SelectList(_context.ilce, "Id", "Id", randevu.ilceId);
+            ViewData["poliklinikId"] = new SelectList(_context.poliklinik, "Id", "PoliklinikIsmi", randevu.poliklinikId);
+            return View(randevu);
+        }
         // GET: Randevu/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -242,6 +331,48 @@ namespace HastaneOtomasyonSistemi.Controllers
         // POST: Randevu/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed2(int id)
+        {
+            if (_context.Randevu == null)
+            {
+                return Problem("Entity set 'HastaneOtomasyonSistemiContext.Randevu'  is null.");
+            }
+            var randevu = await _context.Randevu.FindAsync(id);
+            if (randevu != null)
+            {
+                _context.Randevu.Remove(randevu);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Randevu/Delete/5
+        public async Task<IActionResult> DeleteHasta(int? id)
+        {
+            if (id == null || _context.Randevu == null)
+            {
+                return NotFound();
+            }
+
+            var randevu = await _context.Randevu
+                .Include(r => r.doktor)
+                .Include(r => r.hastaneler)
+                .Include(r => r.il)
+                .Include(r => r.ilce)
+                .Include(r => r.poliklinik)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (randevu == null)
+            {
+                return NotFound();
+            }
+
+            return View(randevu);
+        }
+
+        // POST: Randevu/Delete/5
+        [HttpPost, ActionName("DeleteHasta")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Randevu == null)
@@ -255,7 +386,7 @@ namespace HastaneOtomasyonSistemi.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(HastaRandevu));
         }
 
         private bool RandevuExists(int id)

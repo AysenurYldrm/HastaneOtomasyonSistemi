@@ -4,5 +4,6 @@
 	{
 		public Doktor doktor { get; set; }
 		public Hasta hasta { get; set; }
+
 	}
 }

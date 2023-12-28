@@ -50,6 +50,41 @@ namespace HastaneOtomasyonSistemi.Controllers
             return View(hasta);
         }
 
+        // GET: Doktor/DetailsDoktor/5
+        public async Task<IActionResult> HastaDetails(int? id)
+        {
+            // Kullanıcının doktor kimliğini al
+            int? userHastaId = HttpContext.Session.GetInt32("UserHasta");
+
+            // Eğer kullanıcı kimliği yoksa veya doktor koleksiyonu boşsa NotFound döndür
+            if (userHastaId == null || !_context.Hasta.Any())
+            {
+                return NotFound();
+            }
+
+            //// Eğer detay gösterilecek doktor kimliği belirtilmemişse NotFound döndür
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
+
+            // Eğer userDoktorId değeri varsa ve id ile uyuşmuyorsa, id'yi userDoktorId ile güncelle
+            if (userHastaId != null && userHastaId != id)
+            {
+                id = userHastaId;
+            }
+
+            // Doktoru bul ve eğer yoksa NotFound döndür
+            var hasta = await _context.Hasta
+             .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (hasta == null)
+            {
+                return NotFound();
+            }
+
+            return View(hasta);
+        }
         // GET: Hasta/Create
         public IActionResult Create()
         {
@@ -94,6 +129,57 @@ namespace HastaneOtomasyonSistemi.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Ad,soyAd,Sifre,KimlikNo,DogumTarihi")] Hasta hasta)
+        {
+            if (id != hasta.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(hasta);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!HastaExists(hasta.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(hasta);
+        }
+
+        // GET: Hasta/Edit/5
+        public async Task<IActionResult> EditAdmin(int? id)
+        {
+            if (id == null || _context.Hasta == null)
+            {
+                return NotFound();
+            }
+
+            var hasta = await _context.Hasta.FindAsync(id);
+            if (hasta == null)
+            {
+                return NotFound();
+            }
+            return View(hasta);
+        }
+
+        // POST: Hasta/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditAdmin(int id, [Bind("Id,Ad,soyAd,Sifre,KimlikNo,DogumTarihi")] Hasta hasta)
         {
             if (id != hasta.Id)
             {

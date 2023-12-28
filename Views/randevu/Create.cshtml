@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_HastaLayout.cshtml";
 }
 
 <h1>Create</h1>
@@ -51,92 +51,9 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="HastaRandevu">Back to List</a>
 </div>
 
-
-@* @section Scripts {
-    <script>
-        $(document).ready(function () {
-            $("#ilSelect").change(function () {
-                var ilId = $(this).val();
-                $.ajax({
-                    url: '/Randevu/GetIlceler',
-                    type: 'GET',
-                    data: { ilId: ilId },
-                    success: function (data) {
-                        var ilceSelect = $("#ilceSelect");
-                        ilceSelect.empty();
-                        $.each(data, function (i, item) {
-                            ilceSelect.append($('<option>').text(item.text).attr('value', item.value));
-                        });
-                    }
-                });
-            });
-        });
-
-
-    </script>
-    <script>
-        $(document).ready(function () {
-            $("#ilceSelect").change(function () {
-                var ilceId = $(this).val();
-                $.ajax({
-                    url: '/Randevu/GetHastane',
-                    type: 'GET',
-                    data: { ilceId: ilceId },
-                    success: function (data) {
-                        var HastaneSelect = $("#HastaneSelect");
-                        HastaneSelect.empty();
-                        $.each(data, function (i, item) {
-                            HastaneSelect.append($('<option>').text(item.text).attr('value', item.value));
-                        });
-                    }
-                });
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $("#HastaneSelect").change(function () {
-                var hastaneId = $(this).val();
-                $.ajax({
-                    url: '/Randevu/GetPoliklinik',
-                    type: 'GET',
-                    data: { hastaneId: hastaneId },
-                    success: function (data) {
-                        var PoliklinikSelect = $("#PoliklinikSelect");
-                        PoliklinikSelect.empty();
-                        $.each(data, function (i, item) {
-                            PoliklinikSelect.append($('<option>').text(item.text).attr('value', item.value));
-                        });
-                    }
-                });
-            });
-        });
-
-    </script>
-    <script>
-        $(document).ready(function () {
-            $("#PoliklinikSelect").change(function () {
-                var poliklinikId = $(this).val();
-                $.ajax({
-                    url: '/Randevu/GetDoktor',
-                    type: 'GET',
-                    data: { poliklinikId: poliklinikId },
-                    success: function (data) {
-                        var DoktorSelect = $("#DoktorSelect");
-                        DoktorSelect.empty();
-                        $.each(data, function (i, item) {
-                            DoktorSelect.append($('<option>').text(item.text).attr('value', item.value));
-                        });
-                    }
-                });
-            });
-        });
-
-    </script>
-} *@
  @section Scripts {
 <script>
     $(document).ready(function () {

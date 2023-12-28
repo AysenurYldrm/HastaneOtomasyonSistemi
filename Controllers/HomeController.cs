@@ -65,7 +65,7 @@ namespace HastaneOtomasyonSistemi.Controllers
                     var useridenty = new ClaimsIdentity(claims, "Login");
 					ClaimsPrincipal principal = new ClaimsPrincipal(useridenty);
                     HttpContext.SignInAsync(principal);
-					return RedirectToAction("Index", "Hasta");
+					return RedirectToAction("HastaDetails", "Hasta");
 				}
 				else
 				{
