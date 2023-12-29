@@ -1,0 +1,72 @@
+﻿@* @model HastaneOtomasyonSistemi.Models.Doktor *@
+@model MultipleModelsViewModel
+@{
+	ViewData["Title"] = "Login";
+	Layout = null;
+}
+
+<head>
+
+	<link href="~/css/Register.css" rel="stylesheet" />
+	
+</head>
+
+<h2>HASTA KAYIT EKRANI</h2>
+
+<div class="container" id="container">
+	<div class="form-container sign-in-container">
+
+		<form asp-action ="HomeRegister" method="post">
+			<h2>HASTA KAYIT</h2>
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+			
+				<input asp-for="hasta.Ad" placeholder="Ad" class="form-control" />
+				<span asp-validation-for="hasta.Ad" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+			
+				<input asp-for="hasta.soyAd" placeholder="Soyad" class="form-control" />
+				<span asp-validation-for="hasta.soyAd" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				
+				<input asp-for="hasta.Sifre" placeholder="Şifre" class="form-control" />
+				<span asp-validation-for="hasta.Sifre" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+			
+				<input asp-for="hasta.KimlikNo" placeholder="Kimlik No" class="form-control" />
+				<span asp-validation-for="hasta.KimlikNo" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				
+				<input asp-for="hasta.DogumTarihi" placeholder="Doğum Tarihi" class="form-control" />
+				<span asp-validation-for="hasta.DogumTarihi" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<button type="submit" value="KayıtOl">KAYIT OL</button>
+				
+			</div>
+		</form>
+			
+	</div>
+	
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-right">
+				<h1>Hoşgeldiniz!</h1>
+				<p>Randevu oluşturmak ya da diğer işlemleriniz için lütfen kayıt olunuz.</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer>
+	Created with <i class="fa fa-heart"></i> by
+	<a target="_blank" href="#">Ayşenur Yıldırım</a>
+	- Read how I created this
+	<a target="_blank" href="#">here</a>.
+
+	<script src="~/js/login.js"></script>
+</footer>

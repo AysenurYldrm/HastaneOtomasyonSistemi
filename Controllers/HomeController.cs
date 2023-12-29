@@ -38,7 +38,26 @@ namespace HastaneOtomasyonSistemi.Controllers
         {
             return View();
         }
+		public IActionResult HomeRegister()
+		{
+			return View();
+		}
 
+		// POST: Hasta/Create
+		// To protect from overposting attacks, enable the specific properties you want to bind to.
+		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> HomeRegister([Bind("Id,Ad,soyAd,Sifre,KimlikNo,DogumTarihi")] Hasta hasta)
+		{
+			if (ModelState.IsValid)
+			{
+				_context.Add(hasta);
+				await _context.SaveChangesAsync();
+				return RedirectToAction(nameof(Index));
+			}
+			return View(hasta);
+		}
 		public ActionResult HomeLogin()
 		{
 			return View();
