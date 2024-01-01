@@ -5,6 +5,7 @@ using System.Reflection;
 
 namespace HastaneOtomasyonSistemi.Services
 {
+	//Çoklu dil kullanımı için gerekli yapılar oluşturuldu.
 	public class SharedResource
 	{
 	}
