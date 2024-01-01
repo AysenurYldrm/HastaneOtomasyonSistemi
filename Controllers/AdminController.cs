@@ -46,10 +46,11 @@ namespace HastaneOtomasyonSistemi.Controllers
                     {
                         new Claim(ClaimTypes.Name,admin.Email)
                     };
+                    HttpContext.Session.SetString("Admin", loginAdmin.Email);
                     var useridenty = new ClaimsIdentity(claims, "Login");
                     ClaimsPrincipal principal = new ClaimsPrincipal(useridenty);
                     HttpContext.SignInAsync(principal);
-                    ViewData["Eposta"] = useridenty;
+                    ViewData["Eposta"] = loginAdmin.Email;
                     return RedirectToAction("Index", "Admin");
                 }
                 else
@@ -71,7 +72,8 @@ namespace HastaneOtomasyonSistemi.Controllers
         // GET: Admin
         public async Task<IActionResult> Index()
         {
-              return _context.Admin != null ? 
+            ViewBag.Admin = HttpContext.Session.GetString("Admin");
+            return _context.Admin != null ? 
                           View(await _context.Admin.ToListAsync()) :
                           Problem("Entity set 'HastaneOtomasyonSistemiContext.Admin'  is null.");
         }

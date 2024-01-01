@@ -47,8 +47,8 @@ a {
 
 button {
     border-radius: 20px;
-    border: 1px solid #2596be;
-    background-color: #2596be;
+    border: 1px solid #ff3333;
+    background-color: #ff3333;
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;
@@ -81,6 +81,8 @@ form {
     height: 100%;
     text-align: center;
 }
+
+
 
 input {
     background-color: #eee;
@@ -160,9 +162,9 @@ input {
 }
 
 .overlay {
-    background: #2596be;
-    background: -webkit-linear-gradient(to right, #2596be, #3d7ab1);
-    background: linear-gradient(to right, #2596be, #3d7ab1);
+    background: #8b0000;
+    background: -webkit-linear-gradient(to right, #8b0000, #ff6666); /* Açık kırmızı */
+    background: linear-gradient(to right, #8b0000, #ff6666); /* Açık kırmızı */
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;

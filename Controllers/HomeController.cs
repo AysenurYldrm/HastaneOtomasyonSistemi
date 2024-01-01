@@ -11,33 +11,46 @@ using HastaneOtomasyonSistemi.Data;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
 using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Localization;
+using HastaneOtomasyonSistemi.Services;
 
 namespace HastaneOtomasyonSistemi.Controllers
 {
-    public class HomeController : Controller
-    {
-        //private readonly ILogger<HomeController> _logger; 
-        private readonly HastaneOtomasyonSistemiContext _context;
+	public class HomeController : Controller
+	{
+		private readonly ILogger<HomeController> _logger; 
+		private readonly HastaneOtomasyonSistemiContext _context;
+		private LanguageService _localization;
 
-        public HomeController(HastaneOtomasyonSistemiContext context)
-        {
-            _context = context;
-        }
+		public HomeController(HastaneOtomasyonSistemiContext context, LanguageService localization)
+		{
+			_context = context;
+			_localization = localization;
+		}
 
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
+		public IActionResult ChangeLanguage(string culture)
+		{
+			Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
+				CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)), new CookieOptions()
+				{
+					Expires = DateTimeOffset.UtcNow.AddYears(1)
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+				});
+			return Redirect(Request.Headers["Referer"].ToString());
+				
+			
+		}
+		public IActionResult Index()
+		{
+			ViewBag.Welcome = _localization.Getkey("Welcome").Value;
+			var currentCulture=Thread.CurrentThread.CurrentCulture.Name;
+			return View();
+		}
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+		public IActionResult Privacy()
+		{
+			return View();
+		}
 		public IActionResult HomeRegister()
 		{
 			return View();
@@ -48,21 +61,42 @@ namespace HastaneOtomasyonSistemi.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
+
 		public async Task<IActionResult> HomeRegister([Bind("Id,Ad,soyAd,Sifre,KimlikNo,DogumTarihi")] Hasta hasta)
+
 		{
-			if (ModelState.IsValid)
+			// TC kimlik numarasının veritabanında zaten var olup olmadığını kontrol et
+			var existingHasta = await _context.Hasta.FirstOrDefaultAsync(h => h.KimlikNo == hasta.KimlikNo);
+
+			if (!string.IsNullOrEmpty(hasta.KimlikNo))
 			{
-				_context.Add(hasta);
-				await _context.SaveChangesAsync();
-				return RedirectToAction(nameof(Index));
+				if (existingHasta == null)
+				{
+
+					if (ModelState.IsValid)
+					{
+						_context.Add(hasta);
+						await _context.SaveChangesAsync();
+						return RedirectToAction(nameof(HomeLogin));
+					}
+					return View(hasta);
+				}
+				
+				else
+				{
+					// TC kimlik numarası zaten kayıtlı ise kullanıcıya uyarı ver
+					ViewBag.UyariR = " TC kimlik numarası zaten kayıtlı!";
+
+				}
 			}
-			return View(hasta);
+			return View();
 		}
+
 		public ActionResult HomeLogin()
 		{
 			return View();
 		}
-
+			 
 		[HttpPost]
 		[AllowAnonymous]
 		public ActionResult HomeLogin(Doktor doktor, Hasta hasta)

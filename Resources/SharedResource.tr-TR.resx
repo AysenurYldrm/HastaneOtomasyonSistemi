@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="about" xml:space="preserve">
+    <value>Hastane randevu sistemi R-Tercih, web sitemizde sağlık hizmetlerine hızlı ve etkili bir erişim sunarak, kullanıcı deneyimini ön planda tutuyor.</value>
+  </data>
+  <data name="aboutP" xml:space="preserve">
+    <value>Kolay kullanımı ve kullanıcı dostu ara yüzü ile R-Tercih, hastaların doktor randevularını online olarak planlamalarını sağlayarak zaman tasarrufu sağlıyor. Ayrıca, sistemimiz güvenilir ve güvenli bir yapıya sahiptir, kişisel verilerinizi korurken sağlık randevularınızı sorunsuz bir şekilde organize etmenizi mümkün kılar. Modern ve teknolojiye uygun yapısıyla R-Tercih, sağlık hizmetlerinde dijital dönüşümü destekleyerek kullanıcılarına güvenilir bir çözüm sunmaktadır. Web sitemizi tercih etmek, hızlı, güvenli ve kullanıcı odaklı bir randevu deneyimi ile sağlığınıza daha kolay ulaşmanın kapılarını aralar.</value>
+  </data>
+  <data name="adi" xml:space="preserve">
+    <value>Acil durumlar için randevu alabilir miyim?</value>
+  </data>
+  <data name="adip" xml:space="preserve">
+    <value>Acil durumlar için randevu almak mümkün değildir. Acil durumlar için hastanenin acil servisini kullanmanız önerilir.</value>
+  </data>
+  <data name="ash" xml:space="preserve">
+    <value>Acil Sağlık Hizmetleri</value>
+  </data>
+  <data name="ashP" xml:space="preserve">
+    <value>Ani sağlık sorunları, kaza ve acil durumlar için 24/7 hizmet veren birim, hızlı ve etkili müdahaleleri sağlar.</value>
+  </data>
+  <data name="ch" xml:space="preserve">
+    <value>Cerrahi Hizmetler</value>
+  </data>
+  <data name="chP" xml:space="preserve">
+    <value>Ameliyatlar ve cerrahi müdahalelerin gerçekleştirildiği bu birim, geniş bir yelpazede cerrahi tedavi seçenekleri sunar.</value>
+  </data>
+  <data name="Dahiliye Polikliniği" xml:space="preserve">
+    <value>Dahiliye Polikliniği</value>
+  </data>
+  <data name="dahiliyeP" xml:space="preserve">
+    <value>Hastaların genel sağlık durumlarını değerlendirmek, tanı koymak ve tedavi planları oluşturmak amacıyla iç hastalıkları alanında hizmet veren bir poliklinik.</value>
+  </data>
+  <data name="dk" xml:space="preserve">
+    <value>Doğum ve Kadın Sağlığı Hizmetleri</value>
+  </data>
+  <data name="dkP" xml:space="preserve">
+    <value>Gebelik takibi, doğum hizmetleri, jinekolojik muayeneler ve kadın sağlığına yönelik çeşitli hizmetleri içeren bir birim.</value>
+  </data>
+  <data name="DOKTOR GİRİŞ" xml:space="preserve">
+    <value>DOKTOR GİRİŞ</value>
+  </data>
+  <data name="giriş" xml:space="preserve">
+    <value>GİRİŞ YAP</value>
+  </data>
+  <data name="gma" xml:space="preserve">
+    <value>Güvenli ve Modern Altyapı</value>
+  </data>
+  <data name="gmaP" xml:space="preserve">
+    <value>R-Tercih, güvenli bir dijital ortam sunan modern bir altyapıya sahiptir. Entegre edilmiş güvenlik önlemleri, kullanıcıların sağlık bilgilerini korurken, sistemin teknolojik olarak güncel ve güvenilir bir platform olduğunu vurgular.</value>
+  </data>
+  <data name="gp" xml:space="preserve">
+    <value>Göz sağlığına yönelik tanı, tedavi ve takip hizmetleri sunan bu poliklinik, göz doktorları tarafından yönetilir ve gözle ilgili birçok sorunu ele alır.</value>
+  </data>
+  <data name="Göz Hastalıkları Polikliniği" xml:space="preserve">
+    <value>Göz Hastalıkları Polikliniği</value>
+  </data>
+  <data name="HASTA GİRİŞ" xml:space="preserve">
+    <value>HASTA GİRİŞ</value>
+  </data>
+  <data name="Hasta Kaydı Oluştur" xml:space="preserve">
+    <value>Hasta Kaydı Oluştur</value>
+  </data>
+  <data name="HASTA KAYIT EKRANI" xml:space="preserve">
+    <value>HASTA KAYIT EKRANI</value>
+  </data>
+  <data name="HASTA VE DOKTOR GİRİŞ EKRANI" xml:space="preserve">
+    <value>HASTA VE DOKTOR GİRİŞ EKRANI</value>
+  </data>
+  <data name="hd" xml:space="preserve">
+    <value>Hastane dışından randevu alabilir miyim?</value>
+  </data>
+  <data name="hdp" xml:space="preserve">
+    <value>Evet, çoğu hastane online randevu sistemleri aracılığıyla hastane dışından da randevu almanıza izin verir.
+ Internet veya mobil uygulama üzerinden bu hizmeti kullanabilirsiniz.</value>
+  </data>
+  <data name="hlog" xml:space="preserve">
+    <value>Doktor paneline erişmek ya da diğer işlemleriniz için lütfen giriş yapınız.</value>
+  </data>
+  <data name="hlog2" xml:space="preserve">
+    <value>Randevu oluşturmak ya da diğer işlemleriniz için lütfen giriş yapınız.</value>
+  </data>
+  <data name="imkanlar" xml:space="preserve">
+    <value>İmkanlarımız</value>
+  </data>
+  <data name="imkanlarP" xml:space="preserve">
+    <value>Hastanemiz, modern tıbbi teknoloji ile donatılmış state-of-the-art tesisleri ve uzman sağlık personeli ile hastalarına yüksek kaliteli ve kapsamlı sağlık hizmetleri sunmaktadır.</value>
+  </data>
+  <data name="Kadın Polikliniği" xml:space="preserve">
+    <value>Kadın Doğum Polikliniği</value>
+  </data>
+  <data name="Kardiyoloji Polikliniği" xml:space="preserve">
+    <value>Kardiyoloji Polikliniği</value>
+  </data>
+  <data name="kayıt" xml:space="preserve">
+    <value>KAYIT OL</value>
+  </data>
+  <data name="kd" xml:space="preserve">
+    <value>Kullanıcı Dostu Arayüz ve Hızlı Erişim</value>
+  </data>
+  <data name="kdP" xml:space="preserve">
+    <value>R-Tercih, basit ve kullanıcı dostu bir arayüzle hastaların randevu sistemini kolayca kullanmalarını sağlar. Hızlı erişim özellikleri, kullanıcıların doktor randevularını anında planlamalarına olanak tanır, böylece zaman kaybı minimumda tutulur.</value>
+  </data>
+  <data name="Kimlik No" xml:space="preserve">
+    <value>Kimlik No</value>
+  </data>
+  <data name="KP" xml:space="preserve">
+    <value>Kalp ve dolaşım sistemi sorunlarına odaklanan bu poliklinik, kardiyologlar tarafından hastalara yönelik tanı, takip ve tedavi hizmetleri sunar.</value>
+  </data>
+  <data name="kr" xml:space="preserve">
+    <value>Kişiselleştirilmiş Randevu Planlama Seçenekleri</value>
+  </data>
+  <data name="krP" xml:space="preserve">
+    <value>Sistem, hastaların bireysel ihtiyaçlarına odaklanarak kişiselleştirilmiş randevu planlama seçenekleri sunar. Bu özellik, hastaların tercih ettikleri doktorları, uygun saatleri ve tarihleri seçmelerine olanak tanıyarak, daha özel bir sağlık hizmeti deneyimi sunar.</value>
+  </data>
+  <data name="mt" xml:space="preserve">
+    <value>Modern Tıp</value>
+  </data>
+  <data name="mtP" xml:space="preserve">
+    <value>Hastanemiz, hastalarımızın sağlığını en üst düzeyde tutmayı amaçlayarak modern tıp standartlarına uygun, kapsamlı sağlık hizmetleri sunmaktadır. Sağlığa verdiğimiz bu önem, hastalarımızın doğru teşhis, etkili tedavi ve kişiselleştirilmiş bakım ile en iyi sonuçları elde etmelerini desteklemektedir.</value>
+  </data>
+  <data name="NP" xml:space="preserve">
+    <value>Sinir sistemi rahatsızlıkları üzerine uzmanlaşmış nörologlar tarafından yönetilen poliklinik, başta baş ağrısı ve epilepsi olmak üzere çeşitli nörolojik sorunlara odaklanır.</value>
+  </data>
+  <data name="Nöroloji Polikliniği" xml:space="preserve">
+    <value>Nöroloji Polikliniği</value>
+  </data>
+  <data name="polikliniklerimiz" xml:space="preserve">
+    <value>Polikliniklerimiz</value>
+  </data>
+  <data name="Rİ" xml:space="preserve">
+    <value>Randevu iptali nasıl yapılır?</value>
+  </data>
+  <data name="RİP" xml:space="preserve">
+    <value>Randevu iptali için genellikle internet üzerinden giriş yaparak veya çağrı merkezi aracılığıyla randevu iptali işlemi gerçekleştirilebilir.</value>
+  </data>
+  <data name="SSS" xml:space="preserve">
+    <value>Sıkça Sorulan Sorular</value>
+  </data>
+  <data name="SSS1" xml:space="preserve">
+    <value>Randevu gecikmeleriyle başa çıkmak için öneriler nelerdir?</value>
+  </data>
+  <data name="SSS1P" xml:space="preserve">
+    <value>Randevu gecikmelerini önlemek veya başa çıkmak için randevu saatinde önceden gelmek, gerekirse randevu öncesinde telefonla teyit etmek ve yoğun saatlerden kaçınmak önerilir.</value>
+  </data>
+  <data name="techP" xml:space="preserve">
+    <value>R-Tercih, son teknolojiyi kullanarak hastaların sağlık randevularını kolayca yönetmelerini sağlayan bir çevrimiçi platformdur.</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Hoşgeldiniz </value>
+  </data>
+  <data name="WhyUs" xml:space="preserve">
+    <value>Neden Biz?</value>
+  </data>
+  <data name="WhyUsP" xml:space="preserve">
+    <value>Hastane randevu sistemimiz R-Tercih, hastalarımıza benzersiz bir deneyim sunarak neden biz sorusuna güçlü bir cevap vermektedir. Kullanıcı dostu arayüzü, hızlı erişim ve kişiselleştirilmiş randevu planlama seçenekleriyle, sağlık hizmetlerinde öncü bir rol oynamaktayız. Ayrıca, güvenli ve modern altyapısı sayesinde R-Tercih, hastalarımıza en iyi sağlık hizmetini sunma konusundaki kararlılığımızı yansıtmaktadır.</value>
+  </data>
+  <data name="Şifre" xml:space="preserve">
+    <value>Şifre</value>
+  </data>
+</root>

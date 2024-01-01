@@ -1,5 +1,5 @@
-﻿@* @model HastaneOtomasyonSistemi.Models.Doktor *@
-@model MultipleModelsViewModel
+﻿
+@model HastaneOtomasyonSistemi.Models.Hasta
 @{
 	ViewData["Title"] = "Login";
 	Layout = null;
@@ -11,42 +11,45 @@
 	
 </head>
 
-<h2>HASTA KAYIT EKRANI</h2>
+<h2>@_localization.Getkey("HASTA KAYIT EKRANI")</h2>
 
 <div class="container" id="container">
 	<div class="form-container sign-in-container">
 
 		<form asp-action ="HomeRegister" method="post">
-			<h2>HASTA KAYIT</h2>
+			<h2>@_localization.Getkey("Hasta Kaydı Oluştur")</h2>
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group">
 			
-				<input asp-for="hasta.Ad" placeholder="Ad" class="form-control" />
-				<span asp-validation-for="hasta.Ad" class="text-danger"></span>
+				<input asp-for="Ad" placeholder="Ad" class="form-control" />
+				<span asp-validation-for="Ad" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 			
-				<input asp-for="hasta.soyAd" placeholder="Soyad" class="form-control" />
-				<span asp-validation-for="hasta.soyAd" class="text-danger"></span>
+				<input asp-for="soyAd" placeholder="Soyad" class="form-control" />
+				<span asp-validation-for="soyAd" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				
-				<input asp-for="hasta.Sifre" placeholder="Şifre" class="form-control" />
-				<span asp-validation-for="hasta.Sifre" class="text-danger"></span>
+				<input asp-for="Sifre" placeholder="Şifre" class="form-control" />
+				<span asp-validation-for="Sifre" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 			
-				<input asp-for="hasta.KimlikNo" placeholder="Kimlik No" class="form-control" />
-				<span asp-validation-for="hasta.KimlikNo" class="text-danger"></span>
+				<input asp-for="KimlikNo" placeholder="Kimlik No" class="form-control" />
+				<span asp-validation-for="KimlikNo" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				
-				<input asp-for="hasta.DogumTarihi" placeholder="Doğum Tarihi" class="form-control" />
-				<span asp-validation-for="hasta.DogumTarihi" class="text-danger"></span>
+				<input asp-for="DogumTarihi" placeholder="Doğum Tarihi" class="form-control" />
+				<span asp-validation-for="DogumTarihi" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<button type="submit" value="KayıtOl">KAYIT OL</button>
-				
+				@if (!string.IsNullOrEmpty(ViewBag.UyariR))
+				{
+					<p style="color: red;">@ViewBag.UyariR</p>
+				}
+					<button type="submit"  value="KayıtOl">KAYIT OL</button>
 			</div>
 		</form>
 			

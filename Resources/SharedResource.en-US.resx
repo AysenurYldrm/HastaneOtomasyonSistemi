@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="about" xml:space="preserve">
+    <value>Hospital appointment system R-Preference prioritizes user experience by offering fast and effective access to healthcare services on our website.</value>
+  </data>
+  <data name="aboutP" xml:space="preserve">
+    <value>With its easy-to-use and user-friendly interface, R-Preference saves time by allowing patients to plan their doctor appointments online. In addition, our system has a reliable and secure structure, allowing you to organize your health appointments smoothly while protecting your personal data. With its modern and technologically compatible structure, R-Preference offers a reliable solution to its users by supporting digital transformation in healthcare services. Choosing our website opens the doors to easier access to your health with a fast, safe and user-oriented appointment experience.</value>
+  </data>
+  <data name="adi" xml:space="preserve">
+    <value>Can I make an appointment for emergencies?</value>
+  </data>
+  <data name="adip" xml:space="preserve">
+    <value>It is not possible to make an appointment for emergencies. It is recommended that you use the hospital's emergency department for emergencies.</value>
+  </data>
+  <data name="ash" xml:space="preserve">
+    <value>Emergency Health Services</value>
+  </data>
+  <data name="ashP" xml:space="preserve">
+    <value>The unit provides 24/7 service for sudden health problems, accidents and emergencies and provides fast and effective interventions.</value>
+  </data>
+  <data name="ch" xml:space="preserve">
+    <value>Surgical Services</value>
+  </data>
+  <data name="chP" xml:space="preserve">
+    <value>This unit, where surgeries and surgical interventions are performed, offers a wide range of surgical treatment options.</value>
+  </data>
+  <data name="Dahiliye Polikliniği" xml:space="preserve">
+    <value>Internal Medicine Polyclinic</value>
+  </data>
+  <data name="dahiliyeP" xml:space="preserve">
+    <value>A polyclinic that provides services in the field of internal medicine to evaluate the general health status of patients, make a diagnosis and create treatment plans.</value>
+  </data>
+  <data name="dk" xml:space="preserve">
+    <value>Maternity and Women's Health Services</value>
+  </data>
+  <data name="dkP" xml:space="preserve">
+    <value>A unit that includes pregnancy follow-up, birth services, gynecological examinations and various services for women's health.</value>
+  </data>
+  <data name="DOKTOR GİRİŞ" xml:space="preserve">
+    <value>DOCTOR LOGIN</value>
+  </data>
+  <data name="giriş" xml:space="preserve">
+    <value>LOGİN</value>
+  </data>
+  <data name="gma" xml:space="preserve">
+    <value>Safe and Modern Infrastructure</value>
+  </data>
+  <data name="gmaP" xml:space="preserve">
+    <value>R-Preference has a modern infrastructure that offers a secure digital environment. Integrated security measures protect users' health information while emphasizing that the system is a technologically up-to-date and reliable platform.</value>
+  </data>
+  <data name="gp" xml:space="preserve">
+    <value>This polyclinic, which provides diagnosis, treatment and follow-up services for eye health, is managed by ophthalmologists and addresses many eye-related problems.</value>
+  </data>
+  <data name="Göz Hastalıkları Polikliniği" xml:space="preserve">
+    <value>Ophthalmology Polyclinic</value>
+  </data>
+  <data name="HASTA GİRİŞ" xml:space="preserve">
+    <value>PATIENT LOGIN</value>
+  </data>
+  <data name="Hasta Kaydı Oluştur" xml:space="preserve">
+    <value>Create Patient Record</value>
+  </data>
+  <data name="HASTA KAYIT EKRANI" xml:space="preserve">
+    <value>PATIENT REGISTRATION SCREEN</value>
+  </data>
+  <data name="HASTA VE DOKTOR GİRİŞ EKRANI" xml:space="preserve">
+    <value>PATIENT AND DOCTOR LOGIN SCREEN</value>
+  </data>
+  <data name="hd" xml:space="preserve">
+    <value>Can I make an appointment outside the hospital?</value>
+  </data>
+  <data name="hdp" xml:space="preserve">
+    <value>Yes, most hospitals allow you to make an appointment outside the hospital through their online appointment system.
+ You can use this service via the internet or mobile application.</value>
+  </data>
+  <data name="hlog" xml:space="preserve">
+    <value>Please log in to access the doctor panel or for other transactions.</value>
+  </data>
+  <data name="hlog2" xml:space="preserve">
+    <value>Please log in to make an appointment or perform other transactions.</value>
+  </data>
+  <data name="imkanlar" xml:space="preserve">
+    <value>Facilities</value>
+  </data>
+  <data name="imkanlarP" xml:space="preserve">
+    <value>Our hospital offers high-quality and comprehensive healthcare services to its patients with state-of-the-art facilities equipped with modern medical technology and expert medical staff.</value>
+  </data>
+  <data name="Kadın Polikliniği" xml:space="preserve">
+    <value>Gynecology Polyclinic</value>
+  </data>
+  <data name="Kardiyoloji Polikliniği" xml:space="preserve">
+    <value>Cardiology Polyclinic</value>
+  </data>
+  <data name="kayıt" xml:space="preserve">
+    <value>SIGN-IN</value>
+  </data>
+  <data name="kd" xml:space="preserve">
+    <value>User-Friendly Interface and Quick Access</value>
+  </data>
+  <data name="kdP" xml:space="preserve">
+    <value>R-Preference allows patients to easily use the appointment system with a simple and user-friendly interface. Quick access features allow users to instantly schedule doctor appointments, keeping time wasted to a minimum</value>
+  </data>
+  <data name="Kimlik No" xml:space="preserve">
+    <value>Identification number</value>
+  </data>
+  <data name="KP" xml:space="preserve">
+    <value>Focusing on heart and circulatory system problems, this polyclinic offers diagnosis, follow-up and treatment services to patients by cardiologists.</value>
+  </data>
+  <data name="kr" xml:space="preserve">
+    <value>Personalized Appointment Scheduling Options</value>
+  </data>
+  <data name="krP" xml:space="preserve">
+    <value>The system provides personalized appointment scheduling options by focusing on patients' individual needs. This feature allows patients to choose their preferred doctors and convenient times and dates, providing a more personalized healthcare experience.</value>
+  </data>
+  <data name="mt" xml:space="preserve">
+    <value>Modern Medicine</value>
+  </data>
+  <data name="mtP" xml:space="preserve">
+    <value>Our hospital aims to keep the health of our patients at the highest level and offers comprehensive health services in accordance with modern medical standards. This importance we attach to health supports our patients to achieve the best results with accurate diagnosis, effective treatment and personalized care.</value>
+  </data>
+  <data name="NP" xml:space="preserve">
+    <value>The outpatient clinic, managed by neurologists specializing in nervous system disorders, focuses on various neurological problems, especially headaches and epilepsy.</value>
+  </data>
+  <data name="Nöroloji Polikliniği" xml:space="preserve">
+    <value>Neurology Polyclinic</value>
+  </data>
+  <data name="polikliniklerimiz" xml:space="preserve">
+    <value>polyclinics</value>
+  </data>
+  <data name="Rİ" xml:space="preserve">
+    <value>How to cancel an appointment?</value>
+  </data>
+  <data name="RİP" xml:space="preserve">
+    <value>To cancel an appointment, you can usually cancel your appointment by logging in online or through the call center.</value>
+  </data>
+  <data name="SSS" xml:space="preserve">
+    <value>Frequently Asked Questions</value>
+  </data>
+  <data name="SSS1" xml:space="preserve">
+    <value>What are some suggestions for dealing with appointment delays?</value>
+  </data>
+  <data name="SSS1P" xml:space="preserve">
+    <value>To avoid or deal with appointment delays, it is recommended to arrive in advance at the appointment time, confirm by phone before the appointment if necessary, and avoid busy hours.</value>
+  </data>
+  <data name="techP" xml:space="preserve">
+    <value>R-Preference is an online platform that allows patients to easily manage their healthcare appointments using cutting-edge technology.</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="WhyUs" xml:space="preserve">
+    <value>Why Us?</value>
+  </data>
+  <data name="WhyUsP" xml:space="preserve">
+    <value>Our hospital appointment system, R-Preference, provides a strong answer to the question of why us by offering a unique experience to our patients. We play a leading role in healthcare services with our user-friendly interface, quick access and personalized appointment scheduling options. In addition, thanks to its safe and modern infrastructure, R-Preference reflects our determination to provide the best healthcare service to our patients.</value>
+  </data>
+  <data name="Şifre" xml:space="preserve">
+    <value>Password</value>
+  </data>
+</root>
