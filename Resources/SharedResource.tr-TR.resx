@@ -190,11 +190,17 @@
     <value>Evet, çoğu hastane online randevu sistemleri aracılığıyla hastane dışından da randevu almanıza izin verir.
  Internet veya mobil uygulama üzerinden bu hizmeti kullanabilirsiniz.</value>
   </data>
+  <data name="hk" xml:space="preserve">
+    <value>Hakkımızda</value>
+  </data>
   <data name="hlog" xml:space="preserve">
     <value>Doktor paneline erişmek ya da diğer işlemleriniz için lütfen giriş yapınız.</value>
   </data>
   <data name="hlog2" xml:space="preserve">
     <value>Randevu oluşturmak ya da diğer işlemleriniz için lütfen giriş yapınız.</value>
+  </data>
+  <data name="home" xml:space="preserve">
+    <value>Ana Sayfa</value>
   </data>
   <data name="imkanlar" xml:space="preserve">
     <value>İmkanlarımız</value>
@@ -241,6 +247,9 @@
   <data name="Nöroloji Polikliniği" xml:space="preserve">
     <value>Nöroloji Polikliniği</value>
   </data>
+  <data name="Poliklinikler" xml:space="preserve">
+    <value>Polikliniklerimiz</value>
+  </data>
   <data name="polikliniklerimiz" xml:space="preserve">
     <value>Polikliniklerimiz</value>
   </data>
@@ -249,6 +258,9 @@
   </data>
   <data name="RİP" xml:space="preserve">
     <value>Randevu iptali için genellikle internet üzerinden giriş yaparak veya çağrı merkezi aracılığıyla randevu iptali işlemi gerçekleştirilebilir.</value>
+  </data>
+  <data name="servis" xml:space="preserve">
+    <value>Servislerimiz</value>
   </data>
   <data name="SSS" xml:space="preserve">
     <value>Sıkça Sorulan Sorular</value>

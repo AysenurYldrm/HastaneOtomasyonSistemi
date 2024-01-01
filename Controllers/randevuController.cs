@@ -159,11 +159,7 @@ namespace HastaneOtomasyonSistemi.Controllers
                 return Json(new SelectList(doktorList, "Id", "Ad"));
             }
         }
-
-
-        // POST: Randevu/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,hastaId,ilId,ilceId,hastaneId,RandevuTarihi,RandevuDurumu,doktorId,poliklinikId")] Randevu randevu)

@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_HastaLayout.cshtml";
 }
 
-<h1>HastaRandevu</h1>
+<h1>Randevu Bilgileriniz</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Yeni Randevu Oluştur</a>
 </p>
 <table class="table">
     <thead>
@@ -62,9 +62,9 @@
                 @Html.DisplayFor(modelItem => item.poliklinik.PoliklinikIsmi)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="RandevuDetails" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="DeleteHasta" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Düzenle</a> |
+                <a asp-action="RandevuDetails" asp-route-id="@item.Id">İncele</a> |
+                <a asp-action="DeleteHasta" asp-route-id="@item.Id">Sil</a>
             </td>
         </tr>
 }

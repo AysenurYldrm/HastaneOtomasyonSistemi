@@ -190,11 +190,17 @@
     <value>Yes, most hospitals allow you to make an appointment outside the hospital through their online appointment system.
  You can use this service via the internet or mobile application.</value>
   </data>
+  <data name="hk" xml:space="preserve">
+    <value>About</value>
+  </data>
   <data name="hlog" xml:space="preserve">
     <value>Please log in to access the doctor panel or for other transactions.</value>
   </data>
   <data name="hlog2" xml:space="preserve">
     <value>Please log in to make an appointment or perform other transactions.</value>
+  </data>
+  <data name="home" xml:space="preserve">
+    <value>Home</value>
   </data>
   <data name="imkanlar" xml:space="preserve">
     <value>Facilities</value>
@@ -241,6 +247,9 @@
   <data name="Nöroloji Polikliniği" xml:space="preserve">
     <value>Neurology Polyclinic</value>
   </data>
+  <data name="Poliklinikler" xml:space="preserve">
+    <value>Departmens</value>
+  </data>
   <data name="polikliniklerimiz" xml:space="preserve">
     <value>polyclinics</value>
   </data>
@@ -249,6 +258,9 @@
   </data>
   <data name="RİP" xml:space="preserve">
     <value>To cancel an appointment, you can usually cancel your appointment by logging in online or through the call center.</value>
+  </data>
+  <data name="servis" xml:space="preserve">
+    <value>Services</value>
   </data>
   <data name="SSS" xml:space="preserve">
     <value>Frequently Asked Questions</value>

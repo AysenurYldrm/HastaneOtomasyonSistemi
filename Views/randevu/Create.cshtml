@@ -5,9 +5,8 @@
     Layout = "~/Views/Shared/_HastaLayout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>RANDEVU OLUŞTUR</h1>
 
-<h4>Randevu</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -35,8 +34,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="RandevuTarihi" class="control-label"></label>
-                <input asp-for="RandevuTarihi" class="form-control" />
-                <span asp-validation-for="RandevuTarihi" class="text-danger"></span>
+                <input asp-for="RandevuTarihi"  class="form-control" />
+                <span asp-validation-for="RandevuTarihi"  class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="RandevuDurumu" class="control-label"></label>
@@ -44,20 +43,20 @@
                 <span asp-validation-for="RandevuDurumu" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Oluştur" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="HastaRandevu">Back to List</a>
+    <a asp-action="HastaRandevu">Listeyi görüntüle</a>
 </div>
 
  @section Scripts {
 <script>
     $(document).ready(function () {
-            // İl seçeneği için
+          
             var ilSelect = $("#ilSelect");
             $.ajax({
                 url: '/Poliklinik/GetIller',
@@ -154,6 +153,7 @@
                 }
             });
         });
+
     });
 </script>
 
